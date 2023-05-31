@@ -1,7 +1,11 @@
 using LibraryAPI.Infrastructure.Data;
+using MeetupAPI.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigureCoreServices.ConfigureServices(builder.Configuration, builder.Services, builder.Logging);
+
 
 // Add services to the container.
 builder.Services.AddDbContext<LibraryDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryConnection")));

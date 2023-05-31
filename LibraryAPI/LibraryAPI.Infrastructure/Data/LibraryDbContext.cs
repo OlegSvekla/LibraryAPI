@@ -12,11 +12,12 @@ namespace LibraryAPI.Infrastructure.Data
 
     public class LibraryDbContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Author> Authors { get; set; }
+        public DbSet<BookDto> Books { get; set; }
+        public DbSet<AuthorDto> Authors { get; set; }
 
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
         {
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,7 +25,7 @@ namespace LibraryAPI.Infrastructure.Data
             // Настройки модели и связей между сущностями
 
             // Пример настройки связи один-ко-многим между книгами и авторами
-            modelBuilder.Entity<Book>()
+            modelBuilder.Entity<BookDto>()
             .HasOne(b => b.Author)
             .WithMany(a => a.Books)
             .HasForeignKey(b => b.AuthorId);

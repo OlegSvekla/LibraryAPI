@@ -15,21 +15,21 @@ namespace LibraryAPI.Infrastructure.Data
         {
             if(!dbContext.Authors.Any())
             {
-                var authors = new List<Author>
+                var authors = new List<AuthorDto>
                 {
-                    new Author
+                    new AuthorDto
                     {
                         FirstName = "Andrew",
                         LastName = "Lock",
                        
                     },
-                    new Author
+                    new AuthorDto
                     {
                         FirstName = "Jon",
                         LastName = "Smith",
                         
                     },
-                    new Author
+                    new AuthorDto
                     {
                         FirstName = "Adam",
                         LastName = "Freeman",
@@ -38,14 +38,15 @@ namespace LibraryAPI.Infrastructure.Data
                 };
 
                 await dbContext.Authors.AddRangeAsync(authors);
-                
+                await dbContext.SaveChangesAsync();
+
             }
 
             if (!dbContext.Books.Any())
             {
-                var books = new List<Book>
+                var books = new List<BookDto>
                 {
-                    new Book
+                    new BookDto
                     {
                         AuthorId = 1,
                         Title = "ASP.Net Core In Action",
@@ -58,7 +59,7 @@ namespace LibraryAPI.Infrastructure.Data
 
 
                     },
-                    new Book
+                    new BookDto
                     {
                         AuthorId = 2,
                         Title = "Entity Framework Core In Action",
@@ -68,7 +69,7 @@ namespace LibraryAPI.Infrastructure.Data
                         BorrowedDate = DateTime.Now,
                         ReturnDate = DateTime.Now.AddDays(14)
                     },
-                    new Book
+                    new BookDto
                     {
                         AuthorId = 3,
                         Title = "Pro ASP.Net Core 3",
@@ -78,7 +79,7 @@ namespace LibraryAPI.Infrastructure.Data
                         BorrowedDate = DateTime.Now,
                         ReturnDate = DateTime.Now.AddDays(14)
                     },
-                    new Book
+                    new BookDto
                     {
                         AuthorId = 4,
                         Title = "Pro React 16",
@@ -90,7 +91,8 @@ namespace LibraryAPI.Infrastructure.Data
                 };
 
                 await dbContext.Books.AddRangeAsync(books);
-                
+                await dbContext.SaveChangesAsync();
+
             }
 
             await dbContext.SaveChangesAsync();

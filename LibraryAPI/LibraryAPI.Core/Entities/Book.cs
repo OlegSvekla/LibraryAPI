@@ -1,20 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LibraryAPI.Core.Entities
 {
-    [Table("Books")]
-    public class Book : BaseEntity
+    public class Book : BaseEntitie
     {
-        public string Title { get; set; }
-        public string Isbn { get; set; }
-        public string Genre { get; set; }
-        public string Description { get; set; }
+        [Required]
+        public string? Title { get; set; }
+
+        [Required]
+        public string? Isbn { get; set; }
+
+        [Required]
+        public string? Genre { get; set; }
+
+        [Required]
+        public string? Description { get; set; }
+
+        [Required]
         public int AuthorId { get; set; }
-       
-        public DateTime BorrowedDate { get; set; }
-        public DateTime ReturnDate { get; set; }
 
-        public Author Author { get; set; }
 
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime? BorrowedDate { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime? ReturnDate { get; set; }
+
+
+        public AuthorDto Author { get; set; }
     }
 }
