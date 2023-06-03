@@ -1,34 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LibraryAPI.Core.Entities;
+﻿using LibraryAPI.Core.Entities;
+using LibraryAPI.Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Infrastructure.Data
 {
-    
 
     public class LibraryDbContext : DbContext
     {
-        public DbSet<BookDto> Books { get; set; }
-        public DbSet<AuthorDto> Authors { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
         {
             
+            
+            
         }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Настройки модели и связей между сущностями
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
 
-            // Пример настройки связи один-ко-многим между книгами и авторами
-            modelBuilder.Entity<BookDto>()
-            .HasOne(b => b.Author)
-            .WithMany(a => a.Books)
-            .HasForeignKey(b => b.AuthorId);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

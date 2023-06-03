@@ -7,30 +7,27 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Core.Entities
 {
-    public class Author : BaseEntitie
+    public class Author
     {
-        [Required]
-        public string? FirstName { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get { return $"{FirstName} {LastName}"; } }
 
-        [Required]
-        public string? LastName { get; set; }
-
-        [Required]
-        public string? FullName { get { return $"{FirstName} {LastName}"; } }
-
-        public List<BookDto>? Books { get; set; } = new();
+        // Удалите навигационное свойство Book и свойство BookId
 
         public Author()
         {
-                
         }
 
-        public Author(string firstName, string lastName, string fullName, IList<BookDto> books )
+        public Author(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
-            FirstName = firstName;
-            Books.AddRange(books);
         }
     }
+
+
+
 }

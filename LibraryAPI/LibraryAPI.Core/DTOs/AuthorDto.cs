@@ -1,21 +1,16 @@
-﻿using LibraryAPI.Core.DTOs;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace LibraryAPI.Core.Entities
+﻿namespace LibraryAPI.Core.Entities
 {
-    [Table("Authors")]
-    public class AuthorDto : BaseEntityDto
+
+    public class AuthorDto 
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-        public IList<BookDto> Books { get; set; }
-
+        public List<BookDto> Books { get; set; } = new List<BookDto>();
         public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
-
     }
 
-   
+
 }

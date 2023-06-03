@@ -1,39 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraryAPI.Core.Entities
 {
-    public class Book : BaseEntitie
+    public class Book
     {
-        [Required]
-        public string? Title { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Isbn { get; set; }
+        public string Genre { get; set; }
+        public string Description { get; set; }
+        public DateTime BorrowedDate { get; set; }
+        public DateTime ReturnDate { get; set; }
 
-        [Required]
-        public string? Isbn { get; set; }
+        [ForeignKey("AuthorId")]
+        public int AuthorId { get; set; } // Внешний ключ для связи с автором
 
-        [Required]
-        public string? Genre { get; set; }
-
-        [Required]
-        public string? Description { get; set; }
-
-        [Required]
-        public int AuthorId { get; set; }
-
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime? BorrowedDate { get; set; }
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime? ReturnDate { get; set; }
-
-
-        public AuthorDto Author { get; set; }
+        public Author Author { get; set; }
     }
+
+
 }

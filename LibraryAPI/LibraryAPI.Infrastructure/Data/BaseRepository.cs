@@ -1,146 +1,79 @@
-﻿
-
-using LibraryAPI.Core.Entities;
-using LibraryAPI.Core.Interfaces.IRepository;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using LibraryAPI.Core.Interfaces.IRepository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace LibraryAPI.Infrastructure.Data
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntitie
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly LibraryDbContext _dbContext;
-        private readonly DbSet<T> _table;
+        private readonly LibraryDbContext _context;
+        private readonly DbSet<T> _dbSet;
 
-        public BaseRepository(LibraryDbContext dbContext)
+        public BaseRepository(LibraryDbContext context)
         {
-            _dbContext = dbContext;
-            _table = _dbContext.Set<T>();
+            _context = context;
+            _dbSet = _context.Set<T>();
         }
 
-        /// <summary>
-        /// Gets entities collection based on some criteria.
-        /// </summary>
-        /// <param name="include">Allows to iclude related entities.</param>
-        /// <param name="expression">Allows to filter entities.</param>
-        /// <returns>The collection of entities.</returns>
-        public async Task<IEnumerable<T>> GetAllByAsync(Func<IQueryable<T>,
-            IIncludableQueryable<T, object>>? include = null,
-            Expression<Func<T, bool>>? expression = null)
+        public async Task<T> GetById(int id)
         {
-            IQueryable<T> query = _table;
-
-            if (expression is not null)
-            {
-                query = query.Where(expression);
-            }
-            if (include is not null)
-            {
-                query = include(query);
-            }
-
-            return await query.AsNoTracking().ToListAsync();
+            return await _dbSet.FindAsync(id);
         }
 
-        /// <summary>
-        /// Gets a single entity based on some criteria.
-        /// </summary>
-        /// <param name="include">Allows to iclude related entities.</param>
-        /// <param name="expression">Allows to filter entities.</param>
-        /// <returns>A certain entity.</returns>
-        public async Task<T> GetOneByAsync(Func<IQueryable<T>,
-            IIncludableQueryable<T, object>>? include = null,
-            Expression<Func<T, bool>>? expression = null)
+        public void Update(T entity)
         {
-            IQueryable<T> query = _table;
-
-            if (expression is not null)
-            {
-                query = query.Where(expression);
-            }
-
-            if (include is not null)
-            {
-                query = include(query);
-            }
-
-            var model = await query.AsNoTracking().FirstOrDefaultAsync();
-
-            return model!;
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
-        /// <summary>
-        /// Gets a single entity based on some criteria with EF Tracking.
-        /// </summary>
-        /// <param name="include">Allows to iclude related entities.</param>
-        /// <param name="expression">Allows to filter entities.</param>
-        /// <returns>A certain entity.</returns>
-        public async Task<T> GetOneManyToManyAsync(Func<IQueryable<T>,
-            IIncludableQueryable<T, object>>? include = null,
-            Expression<Func<T, bool>>? expression = null)
+        public List<T> GetAll()
         {
-            IQueryable<T> query = _table;
-
-            if (expression is not null)
-            {
-                query = query.Where(expression);
-            }
-
-            if (include is not null)
-            {
-                query = include(query);
-            }
-
-            var model = await query.FirstOrDefaultAsync();
-
-            return model!;
+            return _dbSet.ToList();
         }
 
-        /// <summary>
-        /// Creates a new entity.
-        /// </summary>
-        /// <param name="entity">The entity to be created.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task CreateAsync(T entity)
+        public async Task<List<T>> GetAllAsync()
         {
-            await _table.AddAsync(entity);
-            await SaveChangesAsync();
+            return await _dbSet.ToListAsync();
         }
 
-        /// <summary>
-        /// Updates an existing entity. 
-        /// </summary>
-        /// <param name="entity">The entity to be updated.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task<T> AddAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
         public async Task UpdateAsync(T entity)
         {
-            var result = _dbContext.Attach(entity);
-            result.State = EntityState.Modified;
-
-            await SaveChangesAsync();
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Removes an existing entity.
-        /// </summary>
-        /// <param name="entity">The entity to be removed.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task CreateAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(T entity)
         {
-            _table.Remove(entity);
-            await SaveChangesAsync();
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Saves changes.
-        /// </summary>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task<bool> SaveChangesAsync()
         {
-            var saved = await _dbContext.SaveChangesAsync();
-            return saved > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
+
+
     }
+
+
+
+
 }

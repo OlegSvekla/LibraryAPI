@@ -1,14 +1,14 @@
+using LibraryAPI.Configuration;
 using LibraryAPI.Infrastructure.Data;
-using MeetupAPI.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 ConfigureCoreServices.ConfigureServices(builder.Configuration, builder.Services, builder.Logging);
 
-
 // Add services to the container.
-builder.Services.AddDbContext<LibraryDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryConnection")));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -17,7 +17,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-var logger = app.Services.GetRequiredService<ILogger<LibraryDbContextSeed>>();
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+var logger = loggerFactory.CreateLogger("LibraryDbContextSeed");
 
 logger.LogInformation("Database migration running...");
 
@@ -27,20 +28,54 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        var meetupContext = scopedProvider.GetRequiredService<LibraryDbContext>();
+        var libraryContext = scopedProvider.GetRequiredService<LibraryDbContext>();
 
-        if (meetupContext.Database.IsSqlServer())
+        if (libraryContext.Database.IsSqlServer())
         {
-            meetupContext.Database.Migrate();
-        }
+            // Попытка выполнить миграцию базы данных
+            var retryCount = 0;
+            var maxRetryCount = 10;
+            var migrationFailed = false;
 
-        await LibraryDbContextSeed.SeedAsync(meetupContext, logger);
+            while (retryCount < maxRetryCount)
+            {
+                try
+                {
+                    libraryContext.Database.Migrate();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    logger.LogWarning($"Migration failed. Retrying... (Attempt {retryCount + 1}/{maxRetryCount})");
+                    logger.LogError(ex.Message);
+                    retryCount++;
+                    await Task.Delay(1000); // Пауза между попытками
+                }
+            }
+
+            if (retryCount == maxRetryCount)
+            {
+                logger.LogError($"Migration failed after {maxRetryCount} attempts. Aborting.");
+                migrationFailed = true;
+            }
+
+            if (!migrationFailed)
+            {
+                LibraryDbContextSeed.SeedData(libraryContext);
+            }
+        }
+        else
+        {
+            logger.LogError("Cannot run database migration. The database provider is not SQL Server.");
+        }
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "An error occurred adding migrations to Database.");
+        logger.LogError(ex, "An error occurred while adding migrations to the database.");
     }
 }
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

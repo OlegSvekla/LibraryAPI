@@ -1,101 +1,110 @@
 ﻿using LibraryAPI.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace LibraryAPI.Infrastructure.Data
 {
-    public class LibraryDbContextSeed
+    public static class LibraryDbContextSeed
     {
-        private readonly ILogger<LibraryDbContextSeed> _logger;
-
-        public LibraryDbContextSeed(ILogger<LibraryDbContextSeed> logger)
+        public static void SeedData(LibraryDbContext context)
         {
-            _logger = logger;
+            
+            SeedBooks(context);
+            SeedAuthors(context);
         }
-        public static async Task SeedAsync(LibraryDbContext dbContext, ILogger<LibraryDbContextSeed> logger)
+
+        private static void SeedAuthors(LibraryDbContext context)
         {
-            if(!dbContext.Authors.Any())
+            var authors = new List<Author>
+        {
+            new Author("John", "Doe"),
+            
+            new Author("Jane", "Smith"),
+            
+            new Author("Michael", "Johnson"),
+           
+            new Author("David", "Brown"),
+            
+            new Author("Emily", "Wilson")
+            
+        };
+
+            context.Authors.AddRange(authors);
+            try
             {
-                var authors = new List<AuthorDto>
-                {
-                    new AuthorDto
-                    {
-                        FirstName = "Andrew",
-                        LastName = "Lock",
-                       
-                    },
-                    new AuthorDto
-                    {
-                        FirstName = "Jon",
-                        LastName = "Smith",
-                        
-                    },
-                    new AuthorDto
-                    {
-                        FirstName = "Adam",
-                        LastName = "Freeman",
-                       
-                    }
-                };
-
-                await dbContext.Authors.AddRangeAsync(authors);
-                await dbContext.SaveChangesAsync();
-
+                context.SaveChanges();
             }
-
-            if (!dbContext.Books.Any())
+            catch (DbUpdateException ex)
             {
-                var books = new List<BookDto>
-                {
-                    new BookDto
-                    {
-                        AuthorId = 1,
-                        Title = "ASP.Net Core In Action",
-                        Genre = "Жанр 1",
-                        Description = "A particle guide on the ASP.Net Core framework.",
-                        Isbn = "978-1617294617",
-                        BorrowedDate = DateTime.Now,
-                        ReturnDate = DateTime.Now.AddDays(7)
-
-
-
-                    },
-                    new BookDto
-                    {
-                        AuthorId = 2,
-                        Title = "Entity Framework Core In Action",
-                        Genre = "Жанр 1",
-                        Description = "This teaches you how to access and update relational data from .NET applications. Following the crystal-clear explanations, real-world examples, and around 100 diagrams, you’ll discover time-saving patterns and best practices for security, performance tuning, and unit testing.",
-                        Isbn = "978-1617294563",
-                        BorrowedDate = DateTime.Now,
-                        ReturnDate = DateTime.Now.AddDays(14)
-                    },
-                    new BookDto
-                    {
-                        AuthorId = 3,
-                        Title = "Pro ASP.Net Core 3",
-                        Genre = "Жанр 1",
-                        Description = "Now in its 8th edition, the comprehensive book you need to learn ASP.NET Core development!",
-                        Isbn = "978-1484254394",
-                        BorrowedDate = DateTime.Now,
-                        ReturnDate = DateTime.Now.AddDays(14)
-                    },
-                    new BookDto
-                    {
-                        AuthorId = 4,
-                        Title = "Pro React 16",
-                        Genre = "Жанр 1",
-                        Description = "Use this book to build dynamic JavaScript applications using the popular React library.",
-                        BorrowedDate = DateTime.Now,
-                        ReturnDate = DateTime.Now.AddDays(14)
-                    }
-                };
-
-                await dbContext.Books.AddRangeAsync(books);
-                await dbContext.SaveChangesAsync();
-
+                // Отображение сообщения об ошибке внутреннего исключения
+                Console.WriteLine(ex.InnerException.Message);
             }
+        }
 
-            await dbContext.SaveChangesAsync();
+        private static void SeedBooks(LibraryDbContext context)
+        {
+            var books = new List<Book>
+        {
+            new Book
+            {
+                Id = 1,
+                Title = "Book 1",
+                Isbn = "1234567890",
+                Genre = "Fiction",
+                Description = "Book 1 Description",
+                BorrowedDate = DateTime.Now.AddDays(-10),
+                ReturnDate = DateTime.Now.AddDays(10),
+                AuthorId = 1,
+            },
+            new Book
+            {
+                Id = 2,
+                Title = "Book 2",
+                Isbn = "0987654321",
+                Genre = "Non-Fiction",
+                Description = "Book 2 Description",
+                BorrowedDate = DateTime.Now.AddDays(-5),
+                ReturnDate = DateTime.Now.AddDays(5),
+                AuthorId = 2,
+            },
+            new Book
+            {
+                Id = 3,
+                Title = "Book 3",
+                Isbn = "9876543210",
+                Genre = "Mystery",
+                Description = "Book 3 Description",
+                BorrowedDate = DateTime.Now.AddDays(-7),
+                ReturnDate = DateTime.Now.AddDays(7),
+                AuthorId = 3,
+            },
+            new Book
+            {
+                Id = 4,
+                Title = "Book 4",
+                Isbn = "5678901234",
+                Genre = "Science Fiction",
+                Description = "Book 4 Description",
+                BorrowedDate = DateTime.Now.AddDays(-3),
+                ReturnDate = DateTime.Now.AddDays(3),
+                AuthorId = 4,
+            },
+            new Book
+            {
+                Id = 5,
+                Title = "Book 5",
+                Isbn = "4321098765",
+                Genre = "Thriller",
+                Description = "Book 5 Description",
+                BorrowedDate = DateTime.Now.AddDays(-2),
+                ReturnDate = DateTime.Now.AddDays(2),
+                AuthorId = 5,
+            }
+        };
+
+            context.Books.AddRange(books);
+            context.SaveChanges();
         }
     }
+
 }

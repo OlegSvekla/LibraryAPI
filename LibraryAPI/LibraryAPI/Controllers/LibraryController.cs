@@ -11,24 +11,24 @@ namespace LibraryAPI.Controllers
     [Route("api/books")]
     public class BookController : ControllerBase
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IBookService<BookDto> _bookService;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IBookService<BookDto> bookService)
         {
-            _bookRepository = bookRepository;
+            _bookService = bookService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBooks()
+        public async Task<ActionResult<IList<BookDto>>> GetAllBooks()
         {
-            var books = await _bookRepository.GetAllAsync();
+            var books = await _bookService.GetAllBooks();
             return Ok(books);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookById(int id)
+        public async Task<ActionResult<BookDto>> GetBookById(int id)
         {
-            var book = await _bookRepository.GetByIdAsync(id);
+            var book = await _bookService.GetBookById(id);
             if (book == null)
             {
                 return NotFound();
@@ -36,51 +36,59 @@ namespace LibraryAPI.Controllers
             return Ok(book);
         }
 
+        [HttpGet("isbn/{isbn}")]
+        public async Task<ActionResult<IList<BookDto>>> GetBooksByIsbn(string isbn)
+        {
+            var books = await _bookService.GetBooksByIsbn(isbn);
+            if (books.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(books);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddBook(BookDto book)
+        public async Task<IActionResult> AddBook(BookDto bookDto)
         {
-            var addedBook = await _bookRepository.AddAsync(book);
-            return CreatedAtAction(nameof(GetBookById), new { id = addedBook.Id }, addedBook);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var success = await _bookService.AddBook(bookDto);
+            if (success)
+            {
+                return Ok();
+            }
+            return StatusCode(500, "Failed to add book.");
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBook(int id, BookDto book)
+        [HttpPut]
+        public async Task<IActionResult> UpdateBook(BookDto bookDto)
         {
-            if (id != book.Id)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            var existingBook = await _bookRepository.GetByIdAsync(id);
-            if (existingBook == null)
+            var success = await _bookService.UpdateBook(bookDto);
+            if (success)
             {
-                return NotFound();
+                return Ok();
             }
-
-            var updatedBook = await _bookRepository.UpdateAsync(book);
-            return Ok(updatedBook);
+            return StatusCode(500, "Failed to update book.");
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBook(BookDto bookDto)
         {
-            var existingBook = await _bookRepository.GetByIdAsync(id);
-            if (existingBook == null)
+            var success = await _bookService.DeleteBook(bookDto);
+            if (success)
             {
-                return NotFound();
+                return Ok();
             }
-
-            var deleted = await _bookRepository.DeleteAsync(id);
-            if (deleted)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            return StatusCode(500, "Failed to delete book.");
         }
     }
-
 
 }

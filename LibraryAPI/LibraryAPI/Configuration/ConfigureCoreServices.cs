@@ -1,11 +1,12 @@
 ﻿using LibraryAPI.Infrastructure.Data;
-using LibraryAPI.Core;
-using LibraryAPI.Core.Interfaces.IService;
-using LibraryAPI.Infrastructure.Services;
 using LibraryAPI.Core.Interfaces.IRepository;
+using LibraryAPI.Core.Interfaces.IService;
+using LibraryAPI.Services;
 using LibraryAPI.Core.Entities;
+using LibraryAPI.Infrastructure.Mapper;
+using Microsoft.EntityFrameworkCore;
 
-namespace MeetupAPI.Configuration
+namespace LibraryAPI.Configuration
 {
     public static class ConfigureCoreServices
     {
@@ -16,19 +17,21 @@ namespace MeetupAPI.Configuration
 
 
 
-
-
-
-
-            #region Services
+            services.AddDbContext<LibraryDbContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("LibraryConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()),
+    ServiceLifetime.Scoped);
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
 
-            //services.AddAutoMapper(typeof(MapperProfile));
+            services.AddScoped<IBookService<BookDto>, BookService>();
 
-            #endregion
-        }
+
+            services.AddAutoMapper(typeof(MapperEntityToDto));
+
             
+        }
+
     }
 }
