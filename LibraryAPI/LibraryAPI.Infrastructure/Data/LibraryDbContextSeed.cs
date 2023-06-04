@@ -8,9 +8,16 @@ namespace LibraryAPI.Infrastructure.Data
     {
         public static void SeedData(LibraryDbContext context)
         {
-            
-            SeedBooks(context);
-            SeedAuthors(context);
+            if (!context.Authors.Any())
+            {
+                SeedAuthors(context);
+            }
+
+            if (!context.Books.Any())
+            {
+                SeedBooks(context);
+            }
+
         }
 
         private static void SeedAuthors(LibraryDbContext context)
@@ -47,7 +54,7 @@ namespace LibraryAPI.Infrastructure.Data
         {
             new Book
             {
-                Id = 1,
+                
                 Title = "Book 1",
                 Isbn = "1234567890",
                 Genre = "Fiction",
@@ -58,7 +65,6 @@ namespace LibraryAPI.Infrastructure.Data
             },
             new Book
             {
-                Id = 2,
                 Title = "Book 2",
                 Isbn = "0987654321",
                 Genre = "Non-Fiction",
@@ -69,7 +75,7 @@ namespace LibraryAPI.Infrastructure.Data
             },
             new Book
             {
-                Id = 3,
+                
                 Title = "Book 3",
                 Isbn = "9876543210",
                 Genre = "Mystery",
@@ -80,7 +86,7 @@ namespace LibraryAPI.Infrastructure.Data
             },
             new Book
             {
-                Id = 4,
+               
                 Title = "Book 4",
                 Isbn = "5678901234",
                 Genre = "Science Fiction",
@@ -91,7 +97,7 @@ namespace LibraryAPI.Infrastructure.Data
             },
             new Book
             {
-                Id = 5,
+               
                 Title = "Book 5",
                 Isbn = "4321098765",
                 Genre = "Thriller",

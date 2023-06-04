@@ -28,11 +28,18 @@ namespace LibraryAPI.Services
             return _mapper.Map<BookDto>(book);
         }
 
+        
+
         public async Task<IList<BookDto>> GetBooksByIsbn(string isbn)
         {
-            var books = await _bookRepository.FirstOrDefaultAsync(b => b.Isbn == isbn);
-            return _mapper.Map<IList<BookDto>>(books);
+            var book = await _bookRepository.FirstOrDefaultAsync(b => b.Isbn == isbn);
+            if (book == null)
+            {
+                return new List<BookDto>();
+            }
+            return new List<BookDto> { _mapper.Map<BookDto>(book) };
         }
+
 
         public async Task<bool> AddBook(BookDto bookDto)
         {
