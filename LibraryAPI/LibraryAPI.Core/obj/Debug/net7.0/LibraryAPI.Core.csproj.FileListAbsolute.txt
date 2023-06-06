@@ -1,0 +1,12 @@
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\bin\Debug\net7.0\LibraryAPI.Core.deps.json
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\bin\Debug\net7.0\LibraryAPI.Core.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\bin\Debug\net7.0\LibraryAPI.Core.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.csproj.AssemblyReference.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.AssemblyInfoInputs.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.AssemblyInfo.cs
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.csproj.CoreCompileInputs.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\refint\LibraryAPI.Core.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\LibraryAPI.Core.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Core\obj\Debug\net7.0\ref\LibraryAPI.Core.dll

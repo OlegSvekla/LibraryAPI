@@ -1,0 +1,17 @@
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.AssemblyInfo.cs
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\bin\Debug\net7.0\LibraryAPI.Infrastructure.deps.json
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\bin\Debug\net7.0\LibraryAPI.Infrastructure.runtimeconfig.json
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\bin\Debug\net7.0\LibraryAPI.Infrastructure.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\bin\Debug\net7.0\LibraryAPI.Infrastructure.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\bin\Debug\net7.0\LibraryAPI.Core.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\bin\Debug\net7.0\LibraryAPI.Core.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.csproj.CopyComplete
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\refint\LibraryAPI.Infrastructure.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\LibraryAPI.Infrastructure.genruntimeconfig.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.Infrastructure\obj\Debug\net7.0\ref\LibraryAPI.Infrastructure.dll
