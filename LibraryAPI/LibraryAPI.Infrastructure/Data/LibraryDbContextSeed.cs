@@ -4,20 +4,36 @@ using Microsoft.Extensions.Logging;
 
 namespace LibraryAPI.Infrastructure.Data
 {
-    public static class LibraryDbContextSeed
+    public class LibraryDbContextSeed
     {
-        public static void SeedData(LibraryDbContext context)
+        private readonly ILogger _logger;
+
+        public LibraryDbContextSeed(ILogger logger)
         {
-            if (!context.Authors.Any())
-            {
-                SeedAuthors(context);
-            }
+            _logger = logger;
+        }
+        public static void SeedData(LibraryDbContext context, ILogger logger)
+        {
+            logger.LogInformation("Data seeding started.");
 
-            if (!context.Books.Any())
+            try
             {
-                SeedBooks(context);
-            }
+                if (!context.Authors.Any())
+                {
+                    SeedAuthors(context);
+                }
 
+                if (!context.Books.Any())
+                {
+                    SeedBooks(context);
+                }
+
+                logger.LogInformation("Data seeding completed successfully.");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while seeding data.");
+            }
         }
 
         private static void SeedAuthors(LibraryDbContext context)
@@ -35,17 +51,10 @@ namespace LibraryAPI.Infrastructure.Data
             new Author("Emily", "Wilson")
             
         };
-
+            
             context.Authors.AddRange(authors);
-            try
-            {
-                context.SaveChanges();
-            }
-            catch (DbUpdateException ex)
-            {
-                // Отображение сообщения об ошибке внутреннего исключения
-                Console.WriteLine(ex.InnerException.Message);
-            }
+            context.SaveChanges(); 
+            
         }
 
         private static void SeedBooks(LibraryDbContext context)

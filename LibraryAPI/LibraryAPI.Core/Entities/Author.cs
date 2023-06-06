@@ -11,12 +11,12 @@ namespace LibraryAPI.Core.Entities
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-
-        // Удалите навигационное свойство Book и свойство BookId
-
+      
         public Author()
         {
         }
@@ -27,7 +27,4 @@ namespace LibraryAPI.Core.Entities
             LastName = lastName;
         }
     }
-
-
-
 }

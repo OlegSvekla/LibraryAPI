@@ -6,7 +6,6 @@ namespace LibraryAPI.Core.Entities
     public class BookDto 
     {
         public int Id { get; set; }
-        
         public string Title { get; set; }
         public string Isbn { get; set; }
         public string Genre { get; set; }
@@ -15,6 +14,7 @@ namespace LibraryAPI.Core.Entities
         public DateTime ReturnDate { get; set; }
         public int AuthorId { get; set; }
         public AuthorDto Author { get; set; }
+
         public int Pages { get; set; }
         public decimal Price { get; set; }
         public string Language { get; set; }

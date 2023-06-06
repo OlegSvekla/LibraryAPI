@@ -1,27 +1,33 @@
-﻿namespace LibraryAPI.Infrastructure.Data
+﻿using LibraryAPI.Core.Interfaces.IService;
+
+namespace LibraryAPI.Infrastructure.Data
 {
-    //public class LoggerService : ILoggerService
-    //{
-    //    private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+    public class LoggerService : ILoggerService
+    {
+        private readonly ILogger _logger;
 
-    //    public void LogDebug(string message)
-    //    {
-    //        logger.Debug(message);
-    //    }
+        public LoggerService(ILogger logger)
+        {
+            _logger = logger;
+        }
+        public void LogDebug(string message)
+        {
+            _logger.LogDebug(message);
+        }
 
-    //    public void LogError(string message)
-    //    {
-    //        logger.Error(message);
-    //    }
+        public void LogError(string message)
+        {
+            _logger.LogError(message);
+        }
 
-    //    public void LogInformation(string message)
-    //    {
-    //        logger.Info(message);
-    //    }
+        public void LogInformation(string message)
+        {
+            _logger.LogInformation(message);
+        }
 
-    //    public void LogWarning(string message)
-    //    {
-    //        logger.Warn(message);
-    //    }
-    //}
+        public void LogWarning(string message)
+        {
+            _logger.LogWarning(message);
+        }
+    }
 }

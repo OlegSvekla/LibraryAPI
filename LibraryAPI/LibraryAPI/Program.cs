@@ -1,16 +1,14 @@
-using LibraryAPI.Configuration;
+using LibraryAPI.ConfigurationForServices;
 using LibraryAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigureCoreServices.ConfigureServices(builder.Configuration, builder.Services, builder.Logging);
-
 // Add services to the container.
-
+ConfigureCoreServices.ConfigureServices(builder.Configuration, builder.Services);
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -61,7 +59,7 @@ using (var scope = app.Services.CreateScope())
 
             if (!migrationFailed)
             {
-                LibraryDbContextSeed.SeedData(libraryContext);
+                LibraryDbContextSeed.SeedData(libraryContext, logger);
             }
         }
         else
@@ -74,8 +72,6 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occurred while adding migrations to the database.");
     }
 }
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

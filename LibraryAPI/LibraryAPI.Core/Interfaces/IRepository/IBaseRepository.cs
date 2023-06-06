@@ -13,7 +13,6 @@ namespace LibraryAPI.Core.Interfaces.IRepository
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task CreateAsync(T entity);
         Task DeleteAsync(T entity);
-        Task<bool> SaveChangesAsync();
-        
+        Task<bool> SaveChangesAsync();   
     }
 }
