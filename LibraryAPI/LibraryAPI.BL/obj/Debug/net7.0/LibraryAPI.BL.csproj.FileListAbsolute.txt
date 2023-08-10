@@ -1,0 +1,15 @@
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.csproj.AssemblyReference.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.AssemblyInfoInputs.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.AssemblyInfo.cs
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.csproj.CoreCompileInputs.cache
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\bin\Debug\net7.0\LibraryAPI.BL.deps.json
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\bin\Debug\net7.0\LibraryAPI.BL.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\bin\Debug\net7.0\LibraryAPI.BL.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\bin\Debug\net7.0\LibraryAPI.Core.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\bin\Debug\net7.0\LibraryAPI.Core.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.csproj.CopyComplete
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\refint\LibraryAPI.BL.dll
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\LibraryAPI.BL.pdb
+C:\Users\olegs\source\repos\OlegSvekla\LibraryAPI\LibraryAPI\LibraryAPI.BL\obj\Debug\net7.0\ref\LibraryAPI.BL.dll

@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LibraryAPI.BL\LibraryAPI.BL.csproj" />
     <ProjectReference Include="..\LibraryAPI.Core\LibraryAPI.Core.csproj" />
     <ProjectReference Include="..\LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj" />
   </ItemGroup>

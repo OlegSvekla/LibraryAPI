@@ -21,7 +21,7 @@ namespace LibraryAPI.ConfigurationForServices
                 sqlOptions => sqlOptions.EnableRetryOnFailure()),
                 ServiceLifetime.Scoped);
 
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddScoped<IBookService<BookDto>, BookService>();
 
