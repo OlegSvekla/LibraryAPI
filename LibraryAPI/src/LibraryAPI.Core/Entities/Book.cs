@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAPI.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,10 +25,14 @@ namespace LibraryAPI.Core.Entities
         public DateTime BorrowedDate { get; set; }
         [Required]
         public DateTime ReturnDate { get; set; }
+        public DateTime PublishedDate { get; set; }
+        public int Pages { get; set; }
+        public decimal Price { get; set; }
+        public string Language { get; set; }
+        public string PublishingHouse { get; set; }
 
         [ForeignKey("AuthorId")]
         public int AuthorId { get; set; } 
-
         public Author Author { get; set; }
 
         public Book(
@@ -36,6 +41,11 @@ namespace LibraryAPI.Core.Entities
             string isbn,
             string genre,
             string description,
+            int pages,
+            decimal price,
+            string language,
+            string publishingHouse,
+            DateTime publishedDate,
             DateTime borrowedDate,
             DateTime returnDate)           
         {
@@ -44,8 +54,14 @@ namespace LibraryAPI.Core.Entities
             Isbn = isbn;
             Genre = genre;
             Description = description;
+            Pages = pages;
+            Price = price;
+            Language = language;
+            PublishingHouse = publishingHouse;
+            PublishedDate = publishedDate;
             BorrowedDate = borrowedDate;
             ReturnDate = returnDate;
+
         }
     }
 }
