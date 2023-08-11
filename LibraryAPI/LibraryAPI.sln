@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI", "LibraryAPI\LibraryAPI.csproj", "{D6A4C7D2-2C8B-47A9-BEF6-8579F82EB136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI", "src\LibraryAPI\LibraryAPI.csproj", "{D6A4C7D2-2C8B-47A9-BEF6-8579F82EB136}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Infrastructure", "LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{A4257730-9BE0-4329-A90D-1822356F274E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Infrastructure", "src\LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{A4257730-9BE0-4329-A90D-1822356F274E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Core", "LibraryAPI.Core\LibraryAPI.Core.csproj", "{0C9C54B2-2CE9-49DE-A8CC-F11515EC3581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Core", "src\LibraryAPI.Core\LibraryAPI.Core.csproj", "{0C9C54B2-2CE9-49DE-A8CC-F11515EC3581}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF0FB9DD-C802-40EE-B77F-25B1E234D132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.BL", "LibraryAPI.BL\LibraryAPI.BL.csproj", "{E93CB074-0E4F-4A20-B770-4E5863934013}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.BL", "src\LibraryAPI.BL\LibraryAPI.BL.csproj", "{E93CB074-0E4F-4A20-B770-4E5863934013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
