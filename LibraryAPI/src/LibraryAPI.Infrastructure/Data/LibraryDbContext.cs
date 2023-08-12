@@ -15,7 +15,6 @@ namespace LibraryAPI.Infrastructure.Data
     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
 
             base.OnModelCreating(modelBuilder);

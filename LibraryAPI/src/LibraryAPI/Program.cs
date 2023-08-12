@@ -23,54 +23,20 @@ logger.LogInformation("Database migration running...");
 using (var scope = app.Services.CreateScope())
 {
     var scopedProvider = scope.ServiceProvider;
-
     try
     {
-        var libraryContext = scopedProvider.GetRequiredService<LibraryDbContext>();
-
-        if (libraryContext.Database.IsSqlServer())
+        var catalogContext = scopedProvider.GetRequiredService<LibraryDbContext>();
+        if (catalogContext.Database.IsSqlServer())
         {
-            // Попытка выполнить миграцию базы данных
-            var retryCount = 0;
-            var maxRetryCount = 10;
-            var migrationFailed = false;
-
-            while (retryCount < maxRetryCount)
-            {
-                try
-                {
-                    libraryContext.Database.Migrate();
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    logger.LogWarning($"Migration failed. Retrying... (Attempt {retryCount + 1}/{maxRetryCount})");
-                    logger.LogError(ex.Message);
-                    retryCount++;
-                    await Task.Delay(1000); // Пауза между попытками
-                }
-            }
-
-            if (retryCount == maxRetryCount)
-            {
-                logger.LogError($"Migration failed after {maxRetryCount} attempts. Aborting.");
-                migrationFailed = true;
-            }
-
-            if (!migrationFailed)
-            {
-                LibraryDbContextSeed.SeedData(libraryContext, logger);
-            }
+            catalogContext.Database.Migrate();
         }
-        else
-        {
-            logger.LogError("Cannot run database migration. The database provider is not SQL Server.");
-        }
+        await LibraryDbContextSeed.SeedAsyncData(catalogContext, app.Logger);       
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "An error occurred while adding migrations to the database.");
+        app.Logger.LogError(ex, "An error occurred adding migrations to Databse.");
     }
+
 }
 
 // Configure the HTTP request pipeline.
