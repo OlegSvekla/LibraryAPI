@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using IdentityServer4.AccessTokenValidation;
+using FluentValidation;
+using LibraryAPI.Core.Validation;
 
 namespace LibraryAPI.ConfigurationForServices
 {
@@ -24,6 +26,8 @@ namespace LibraryAPI.ConfigurationForServices
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddScoped<IBookService<BookDto>, BookService>();
+            services.AddScoped<IValidator<BookDto>, BookDtoValidator>();
+            services.AddScoped<IValidator<AuthorDto>, AuthorDtoValidator>();
 
             services.AddAutoMapper(typeof(MapperEntityToDto));
 

@@ -13,16 +13,7 @@ namespace LibraryAPI.Infrastructure.ConfigurationForEntity
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.ToTable("Books");
-
-            builder.HasKey(b => b.Id);
-
-            builder.Property(b => b.Title)
-                .IsRequired();
-
-            builder.Property(b => b.Isbn)
-                .IsRequired();
-
+            //TODO DELETE COMMENT
             builder.HasOne(b => b.Author)
                 .WithMany() // Убрано навигационное свойство из связи один-ко-многим
                 .HasForeignKey(b => b.AuthorId)
