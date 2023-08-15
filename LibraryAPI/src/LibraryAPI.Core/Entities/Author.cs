@@ -16,7 +16,7 @@ namespace LibraryAPI.Core.Entities
         [Required]
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-        public string Nationality { get; set; }
+        public string ?Nationality { get; set; }
         public DateTime BirthDate { get; set; }
 
         public Author()

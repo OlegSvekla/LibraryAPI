@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LibraryAPI.Core\LibraryAPI.Domain.csproj" />
-    <ProjectReference Include="..\LibraryAPI.Core\LibraryAPI.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
