@@ -27,9 +27,9 @@ namespace LibraryAPI.Core.Entities
         public DateTime ReturnDate { get; set; }
         public DateTime PublishedDate { get; set; }
         public int Pages { get; set; }
-        public decimal ?Price { get; set; }
-        public string ?Language { get; set; }
-        public string ?PublishingHouse { get; set; }
+        public decimal Price { get; set; }
+        public string Language { get; set; }
+        public string PublishingHouse { get; set; }
 
         [ForeignKey("AuthorId")]
         public int AuthorId { get; set; } 
