@@ -1,4 +1,6 @@
-﻿namespace LibraryAPI.Core.Entities
+﻿using Swashbuckle.AspNetCore.Annotations;
+
+namespace LibraryAPI.Core.Entities
 {
     public class AuthorDto 
     {

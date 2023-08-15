@@ -14,7 +14,7 @@ namespace LibraryAPI.Core.Entities
         [Key]
         public int Id { get; set; }
         [Required]
-        public string ?Title { get; set; }
+        public string Title { get; set; }
         [Required]
         public string Isbn { get; set; }
         [Required]
@@ -25,13 +25,7 @@ namespace LibraryAPI.Core.Entities
         public DateTime BorrowedDate { get; set; }
         [Required]
         public DateTime ReturnDate { get; set; }
-        public DateTime PublishedDate { get; set; }
-        public int Pages { get; set; }
-        public decimal Price { get; set; }
-        public string Language { get; set; }
-        public string PublishingHouse { get; set; }
 
-        [ForeignKey("AuthorId")]
         public int AuthorId { get; set; } 
         public Author Author { get; set; }
 
@@ -46,11 +40,6 @@ namespace LibraryAPI.Core.Entities
             string isbn,
             string genre,
             string description,
-            int pages,
-            decimal price,
-            string language,
-            string publishingHouse,
-            DateTime publishedDate,
             DateTime borrowedDate,
             DateTime returnDate)           
         {
@@ -59,14 +48,8 @@ namespace LibraryAPI.Core.Entities
             Isbn = isbn;
             Genre = genre;
             Description = description;
-            Pages = pages;
-            Price = price;
-            Language = language;
-            PublishingHouse = publishingHouse;
-            PublishedDate = publishedDate;
             BorrowedDate = borrowedDate;
             ReturnDate = returnDate;
-
         }
     }
 }
