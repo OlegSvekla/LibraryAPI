@@ -16,6 +16,7 @@ namespace LibraryAPI.Infrastructure.ConfigurationForEntity
             //TODO DELETE COMMENT
             builder.HasOne(b => b.Author)
                 .WithMany() // Убрано навигационное свойство из связи один-ко-многим
+                .HasForeignKey(b => b.AuthorId)
                 .IsRequired();
             builder.Navigation(b => b.Author).AutoInclude();
         }
