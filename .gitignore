@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/LibraryAPI/.vs/LibraryAPI/DesignTimeBuild/.dtbcache.v2
+/LibraryAPI/.vs/LibraryAPI/v17/.futdcache.v2
+/LibraryAPI/.vs/LibraryAPI/v17/.suo
