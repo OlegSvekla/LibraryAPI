@@ -2,6 +2,7 @@
 using LibraryAPI.Core.Entities;
 using LibraryAPI.Core.Interfaces.IRepository;
 using LibraryAPI.Core.Interfaces.IService;
+using LibraryAPI.Domain.Exeptions;
 using Microsoft.Extensions.Logging;
 
 namespace LibraryAPI.Services
@@ -84,24 +85,60 @@ namespace LibraryAPI.Services
             return true; // Return true if the book was successfully added
         }
 
-        public async Task<bool> UpdateBook(BookDto bookDto)
-        {
-            _logger.LogInformation("Updating a book.");
+        //public async Task<bool> UpdateBook(BookDto bookDto)
+        //{
+        //    _logger.LogInformation("Updating a book.");
 
-            var book = _mapper.Map<Book>(bookDto);
+        //    var book = _mapper.Map<Book>(bookDto);
+        //    try
+        //    {
+        //        await _bookRepository.UpdateAsync(book);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        _logger.LogError("Failed to update the book. Some Id fields are missing or the Authors Ids are invalid.");
+        //        throw new Exception("Failed to update the book. " +
+        //            "Please enter a value for every Id field to choose the book to update, " +
+        //            "and ensure that the Authors Ids correspond to their books or contain existing Authors Ids.");
+        //    }
+
+        //    _logger.LogInformation("Updated the book successfully.");
+        //    return true; // Return true if the book was successfully updated
+        //}
+
+        public async Task<bool> UpdateBook(int id, BookDto updatedBookDto)
+        {
+            _logger.LogInformation($"Updating a book with Id: {id}");
+
+            var existingBook = await _bookRepository.GetOneByAsync(expression: book => book.Id == id);
+
+            if (existingBook == null)
+            {
+                _logger.LogError($"Book with Id: {id} was not found");
+                throw new BookNotFoundException($"Book with Id: {id} was not found");
+            }
+
+            // Update properties
+            existingBook.Title = updatedBookDto.Title;
+            existingBook.Isbn = updatedBookDto.Isbn;
+            existingBook.Genre = updatedBookDto.Genre;
+            existingBook.Description = updatedBookDto.Description;
+            existingBook.BorrowedDate = updatedBookDto.BorrowedDate;
+            existingBook.ReturnDate = updatedBookDto.ReturnDate;
+
+            // ... Update other properties as needed
+
             try
             {
-                await _bookRepository.UpdateAsync(book);
+                await _bookRepository.UpdateAsync(existingBook);
             }
             catch (Exception)
             {
-                _logger.LogError("Failed to update the book. Some Id fields are missing or the Authors Ids are invalid.");
-                throw new Exception("Failed to update the book. " +
-                    "Please enter a value for every Id field to choose the book to update, " +
-                    "and ensure that the Authors Ids correspond to their books or contain existing Authors Ids.");
+                _logger.LogError("Failed to update the book.");
+                throw new Exception("Failed to update the book.");
             }
 
-            _logger.LogInformation("Updated the book successfully.");
+            _logger.LogInformation($"Book with Id: {id} has been successfully updated.");
             return true; // Return true if the book was successfully updated
         }
 

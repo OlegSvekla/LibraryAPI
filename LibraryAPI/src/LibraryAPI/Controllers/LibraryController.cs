@@ -110,33 +110,49 @@ namespace LibraryAPI.Controllers
                 "Please don't enter a value for the Id fields as they are automatically populated");
         }
 
-        /// <summary>
-        /// Updates book with the specified ID
-        /// </summary>        
-        /// <returns>Ok response indicating the update was successful.</returns>
-        /// <remarks>
-        /// Please enter a value for the every Id fields to choose the book to update. 
-        /// Authors Ids must have values ​​corresponding to their book or not but have to contain an existing Authors Id. 
-        /// </remarks>
-        /// <response code="200">Book is updated.</response>
-        /// <response code="500">You don't enter every Id fields.</response>
-        [ProducesResponseType(200, Type = typeof(BookDto))]
-        [ProducesResponseType(500)]
-        
-        [HttpPut]
-        public async Task<IActionResult> UpdateBook(BookDto bookDto)
+        ///// <summary>
+        ///// Updates book with the specified ID
+        ///// </summary>        
+        ///// <returns>Ok response indicating the update was successful.</returns>
+        ///// <remarks>
+        ///// Please enter a value for the every Id fields to choose the book to update. 
+        ///// Authors Ids must have values ​​corresponding to their book or not but have to contain an existing Authors Id. 
+        ///// </remarks>
+        ///// <response code="200">Book is updated.</response>
+        ///// <response code="500">You don't enter every Id fields.</response>
+        //[ProducesResponseType(200, Type = typeof(BookDto))]
+        //[ProducesResponseType(500)]        
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateBook(BookDto bookDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var success = await _bookService.UpdateBook(bookDto);
+        //    if (success)
+        //    {
+        //        return Ok();
+        //    }
+        //    return StatusCode(500, "You don't enter every Id fields.");            
+        //}
+
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> UpdateBook([FromRoute] int id, [FromBody] BookDto updatedBookDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var success = await _bookService.UpdateBook(bookDto);
+            var success = await _bookService.UpdateBook(id, updatedBookDto);
             if (success)
             {
-                return Ok();
+                return NoContent();
             }
-            return StatusCode(500, "You don't enter every Id fields.");            
+            return StatusCode(500, "You don't enter every Id fields.");
         }
 
         /// <summary>

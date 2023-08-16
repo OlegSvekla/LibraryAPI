@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Core.Interfaces.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace LibraryAPI.Infrastructure.Data
@@ -40,6 +41,27 @@ namespace LibraryAPI.Infrastructure.Data
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
+        }
+
+        public async Task<T> GetOneByAsync(Func<IQueryable<T>,
+            IIncludableQueryable<T, object>>? include = null,
+            Expression<Func<T, bool>>? expression = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (expression is not null)
+            {
+                query = query.Where(expression);
+            }
+
+            if (include is not null)
+            {
+                query = include(query);
+            }
+
+            var model = await query.AsNoTracking().FirstOrDefaultAsync();
+
+            return model!;
         }
 
         public async Task UpdateAsync(T entity)

@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
 
 namespace LibraryAPI.Core.Interfaces.IRepository
 {
@@ -13,6 +14,9 @@ namespace LibraryAPI.Core.Interfaces.IRepository
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task CreateAsync(T entity);
         Task DeleteAsync(T entity);
-        Task<bool> SaveChangesAsync();   
+        Task<bool> SaveChangesAsync();
+        Task<T> GetOneByAsync(Func<IQueryable<T>,
+            IIncludableQueryable<T, object>>? include = null,
+            Expression<Func<T, bool>>? expression = null);
     }
 }
