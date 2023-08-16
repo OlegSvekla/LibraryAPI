@@ -13,6 +13,6 @@ namespace LibraryAPI.Core.Interfaces.IService
         Task<IList<T>> GetBooksByIsbn(string isbn);
         Task<bool> AddBook(T book);
         Task<bool> UpdateBook(int id,T book);
-        Task<bool> DeleteBook(T book);      
+        Task<T> DeleteBook(int id);      
     }
 }

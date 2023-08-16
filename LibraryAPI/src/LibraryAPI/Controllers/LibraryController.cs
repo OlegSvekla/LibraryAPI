@@ -155,26 +155,39 @@ namespace LibraryAPI.Controllers
             return StatusCode(500, "You don't enter every Id fields.");
         }
 
-        /// <summary>
-        /// Removes book with the specified ID.
-        /// </summary>        
-        /// <returns>Ok response indicating the removing was successful.</returns>
-        /// /// <remarks>
-        /// Enter only book's Id field which you want to remove.
-        /// </remarks>
-        /// <response code="200">The book was successfully removed.</response>
-        /// <response code="500">You entered a non-existent Id, please enter a valid existing Id  </response>
-        [ProducesResponseType(200, Type = typeof(BookDto))]
-        [ProducesResponseType(500)]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBook(BookDto bookDto)
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteBook([FromRoute] int id)
         {
-            var success = await _bookService.DeleteBook(bookDto);
-            if (success)
-            {
-                return Ok();
-            }
-            return StatusCode(500, "You entered a non-existent Id, please enter a valid existing Id. ");
+            var success = await _bookService.DeleteBook(id);
+            
+            
+            return NoContent();
+            
+           
         }
+
+        ///// <summary>
+        ///// Removes book with the specified ID.
+        ///// </summary>        
+        ///// <returns>Ok response indicating the removing was successful.</returns>
+        ///// /// <remarks>
+        ///// Enter only book's Id field which you want to remove.
+        ///// </remarks>
+        ///// <response code="200">The book was successfully removed.</response>
+        ///// <response code="500">You entered a non-existent Id, please enter a valid existing Id  </response>
+        //[ProducesResponseType(200, Type = typeof(BookDto))]
+        //[ProducesResponseType(500)]
+        //[HttpDelete]
+        //public async Task<IActionResult> DeleteBook(BookDto bookDto)
+        //{
+        //    var success = await _bookService.DeleteBook(bookDto);
+        //    if (success)
+        //    {
+        //        return Ok();
+        //    }
+        //    return StatusCode(500, "You entered a non-existent Id, please enter a valid existing Id. ");
+        //}
     }
 }

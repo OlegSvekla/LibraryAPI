@@ -142,23 +142,43 @@ namespace LibraryAPI.Services
             return true; // Return true if the book was successfully updated
         }
 
-        public async Task<bool> DeleteBook(BookDto bookDto)
+        
+
+
+        public async Task<BookDto> DeleteBook(int bookId)
         {
-            _logger.LogInformation("Deleting a book.");
+            var bookToDelete = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookId));
 
-            var book = _mapper.Map<Book>(bookDto);
-            try
+            if (bookToDelete is null)
             {
-                await _bookRepository.DeleteAsync(book);
-            }
-            catch (Exception)
-            {
-                _logger.LogError("Failed to delete the book.");
-                throw new Exception("Failed to delete the book. Please enter a valid existing Id.");
+                throw new BookNotFoundException($"Such event with Id: {bookId} was not found");
             }
 
-            _logger.LogInformation("Deleted the book successfully.");
-            return true; // Return true if the book was successfully deleted
+            await _bookRepository.DeleteAsync(bookToDelete!);
+
+            _logger.LogInformation($"Event with Id: {bookId} is removed");
+
+            var bookDeleted = _mapper.Map<BookDto>(bookToDelete);
+
+            return bookDeleted;
         }
+        //public async Task<bool> DeleteBook(BookDto bookDto)
+        //{
+        //    _logger.LogInformation("Deleting a book.");
+
+        //    var book = _mapper.Map<Book>(bookDto);
+        //    try
+        //    {
+        //        await _bookRepository.DeleteAsync(book);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        _logger.LogError("Failed to delete the book.");
+        //        throw new Exception("Failed to delete the book. Please enter a valid existing Id.");
+        //    }
+
+        //    _logger.LogInformation("Deleted the book successfully.");
+        //    return true; // Return true if the book was successfully deleted
+        //}
     }
 }
