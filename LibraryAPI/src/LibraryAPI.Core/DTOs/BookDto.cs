@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryAPI.Core.Entities
 {
     public class BookDto 
     {
+        [SwaggerSchema(ReadOnly = true)]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Isbn { get; set; }
@@ -11,7 +13,6 @@ namespace LibraryAPI.Core.Entities
         public string Description { get; set; }
         public DateTime BorrowedDate { get; set; }
         public DateTime ReturnDate { get; set; }
-        public int AuthorId { get; set; }
         public AuthorDto Author { get; set; }
     }
 }

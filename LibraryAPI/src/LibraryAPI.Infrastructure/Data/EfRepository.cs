@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Core.Interfaces.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace LibraryAPI.Infrastructure.Data
@@ -15,24 +16,43 @@ namespace LibraryAPI.Infrastructure.Data
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<IEnumerable<T>> GetAllAsync(Func<IQueryable<T>,
+           IIncludableQueryable<T, object>>? include = null,
+           Expression<Func<T, bool>>? expression = null)
         {
-            return await _dbSet.FindAsync(id);
+            IQueryable<T> query = _dbSet;
+
+            if (expression is not null)
+            {
+                query = query.Where(expression);
+            }
+            if (include is not null)
+            {
+                query = include(query);
+            }
+
+            return await query.AsNoTracking().ToListAsync();
         }
 
-        public void Update(T entity)
+        public async Task<T> GetOneByAsync(Func<IQueryable<T>,
+            IIncludableQueryable<T, object>>? include = null,
+            Expression<Func<T, bool>>? expression = null)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-        }
+            IQueryable<T> query = _dbSet;
 
-        public List<T> GetAll()
-        {
-            return _dbSet.ToList();
-        }
+            if (expression is not null)
+            {
+                query = query.Where(expression);
+            }
 
-        public async Task<List<T>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
+            if (include is not null)
+            {
+                query = include(query);
+            }
+
+            var model = await query.AsNoTracking().FirstOrDefaultAsync();
+
+            return model!;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -45,17 +65,6 @@ namespace LibraryAPI.Infrastructure.Data
         public async Task UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _dbSet.FirstOrDefaultAsync(predicate);
-        }
-
-        public async Task CreateAsync(T entity)
-        {
-            await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 

@@ -40,7 +40,7 @@ namespace LibraryAPI.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("LibraryAPI.Core.Entities.Book", b =>
@@ -80,7 +80,7 @@ namespace LibraryAPI.Infrastructure.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("LibraryAPI.Core.Entities.Book", b =>

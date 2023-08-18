@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryAPI.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20230603082834_InitialSchema")]
+    [Migration("20230815105631_InitialSchema")]
     partial class InitialSchema
     {
         /// <inheritdoc />
@@ -43,7 +43,7 @@ namespace LibraryAPI.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("LibraryAPI.Core.Entities.Book", b =>
@@ -83,7 +83,7 @@ namespace LibraryAPI.Infrastructure.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("LibraryAPI.Core.Entities.Book", b =>
