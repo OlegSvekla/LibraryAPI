@@ -10,6 +10,7 @@ using System.Reflection;
 using IdentityServer4.AccessTokenValidation;
 using FluentValidation;
 using LibraryAPI.Core.Validation;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LibraryAPI.ConfigurationForServices
 {

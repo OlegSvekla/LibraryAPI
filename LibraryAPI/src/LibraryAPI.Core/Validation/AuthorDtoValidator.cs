@@ -10,7 +10,6 @@ namespace LibraryAPI.Core.Validation
 {
     public class AuthorDtoValidator : AbstractValidator<AuthorDto>
     {
-        //TODO REWRITE
         public AuthorDtoValidator()
         {
             RuleFor(author => author.FirstName)

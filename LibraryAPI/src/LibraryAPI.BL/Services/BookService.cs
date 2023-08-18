@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using LibraryAPI.Core.Entities;
 using LibraryAPI.Core.Interfaces.IRepository;
 using LibraryAPI.Core.Interfaces.IService;
@@ -12,12 +13,17 @@ namespace LibraryAPI.Services
         private readonly IRepository<Book> _bookRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<BookService> _logger;
+        private readonly IValidator<BookDto> _validator;
 
-        public BookService(IRepository<Book> bookRepository, IMapper mapper, ILogger<BookService> logger)
+        public BookService(IRepository<Book> bookRepository,
+            IMapper mapper,
+            ILogger<BookService> logger,
+            IValidator<BookDto> validator)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
             _logger = logger;
+            _validator = validator;
         }
 
         public async Task<IList<BookDto>> GetAllBooks()
@@ -28,10 +34,12 @@ namespace LibraryAPI.Services
             if (books is null)
             {
                 _logger.LogWarning("The base is empty and have any books.");
-                throw new Exception("The base is empty and don't have any books.");
+
+                throw new BookNotFoundException("The base is empty and don't have any books.");
             }
 
             _logger.LogInformation("Retrieved all books successfully.");
+
             return _mapper.Map<IList<BookDto>>(books);
         }
 
@@ -39,14 +47,16 @@ namespace LibraryAPI.Services
         {
             _logger.LogInformation($"Getting book with Id: {id}.");
 
-            var book = await _bookRepository.GetById(id);
+            var book = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(id));
             if (book is null)
             {
                 _logger.LogWarning($"The base doesn't contain the book with Id: {id}.");
-                throw new Exception($"The base doesn't contain the book with Id: {id}. Please try again with an existing Id.");
+
+                throw new BookNotFoundException($"The base doesn't contain the book with Id: {id}. Please try again with an existing Id.");
             }
 
             _logger.LogInformation($"Retrieved book with Id: {id} successfully.");
+
             return _mapper.Map<BookDto>(book);
         }
 
@@ -54,101 +64,82 @@ namespace LibraryAPI.Services
         {
             _logger.LogInformation($"Getting book with ISBN: {isbn}.");
 
-            var book = await _bookRepository.FirstOrDefaultAsync(b => b.Isbn == isbn);
+            var book = await _bookRepository.GetOneByAsync(expression: _ => _.Isbn.Equals(isbn));
             if (book is null)
             {
                 _logger.LogWarning($"The base doesn't contain the book with ISBN: {isbn}.");
-                throw new Exception($"The base doesn't contain the book with ISBN: {isbn}. Please try again with an existing ISBN.");
+
+                throw new BookNotFoundException($"The base doesn't contain the book with ISBN: {isbn}. Please try again with an existing ISBN.");
             }
 
             _logger.LogInformation($"Retrieved book with ISBN: {isbn} successfully.");
+
             return new List<BookDto> { _mapper.Map<BookDto>(book) };
         }
 
         public async Task<bool> AddBook(BookDto bookDto)
         {
+            var validationResult = await _validator.ValidateAsync(bookDto);
+            if (!validationResult.IsValid)
+            {
+                throw new InvalidValueException(validationResult.ToString());
+            }
+
             _logger.LogInformation("Adding a new book.");
 
             var book = _mapper.Map<Book>(bookDto);
-            try
-            {
-                await _bookRepository.AddAsync(book);
-            }
-            catch (Exception)
+
+            var result = await _bookRepository.AddAsync(book);
+            if (result is null)
             {
                 _logger.LogError("Failed to add the book.");
-                throw new Exception("Failed to add the book. " +
+
+                throw new FailedToMakeOperation("Failed to add the book. " +
                     "Please don't enter a value for the Id field as it is automatically populated.");
             }
 
             _logger.LogInformation("Added a new book successfully.");
-            return true; // Return true if the book was successfully added
+
+            return true;
         }
 
-        //public async Task<bool> UpdateBook(BookDto bookDto)
-        //{
-        //    _logger.LogInformation("Updating a book.");
-
-        //    var book = _mapper.Map<Book>(bookDto);
-        //    try
-        //    {
-        //        await _bookRepository.UpdateAsync(book);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _logger.LogError("Failed to update the book. Some Id fields are missing or the Authors Ids are invalid.");
-        //        throw new Exception("Failed to update the book. " +
-        //            "Please enter a value for every Id field to choose the book to update, " +
-        //            "and ensure that the Authors Ids correspond to their books or contain existing Authors Ids.");
-        //    }
-
-        //    _logger.LogInformation("Updated the book successfully.");
-        //    return true; // Return true if the book was successfully updated
-        //}
-
-        public async Task<bool> UpdateBook(int id, BookDto updatedBookDto)
+        public async Task<BookDto> UpdateBook(int id, BookDto updatedBookDto)
         {
+            var validationResult = await _validator.ValidateAsync(updatedBookDto);
+            if (!validationResult.IsValid)
+            {
+                throw new InvalidValueException(validationResult.ToString());
+            }
+
             _logger.LogInformation($"Updating a book with Id: {id}");
 
             var existingBook = await _bookRepository.GetOneByAsync(expression: book => book.Id == id);
-
-            if (existingBook == null)
+            if (existingBook is null)
             {
                 _logger.LogError($"Book with Id: {id} was not found");
+
                 throw new BookNotFoundException($"Book with Id: {id} was not found");
             }
-
-            // Update properties
-            existingBook.Title = updatedBookDto.Title;
-            existingBook.Isbn = updatedBookDto.Isbn;
-            existingBook.Genre = updatedBookDto.Genre;
-            existingBook.Description = updatedBookDto.Description;
-            existingBook.BorrowedDate = updatedBookDto.BorrowedDate;
-            existingBook.ReturnDate = updatedBookDto.ReturnDate;
-
-            // ... Update other properties as needed
-
-            try
+            else
             {
-                await _bookRepository.UpdateAsync(existingBook);
+                existingBook.Title = updatedBookDto.Title;
+                existingBook.Isbn = updatedBookDto.Isbn;
+                existingBook.Genre = updatedBookDto.Genre;
+                existingBook.Description = updatedBookDto.Description;
+                existingBook.BorrowedDate = updatedBookDto.BorrowedDate;
+                existingBook.ReturnDate = updatedBookDto.ReturnDate;
             }
-            catch (Exception)
-            {
-                _logger.LogError("Failed to update the book.");
-                throw new Exception("Failed to update the book.");
-            }
+
+            await _bookRepository.UpdateAsync(existingBook);
 
             _logger.LogInformation($"Book with Id: {id} has been successfully updated.");
-            return true; // Return true if the book was successfully updated
+
+            return updatedBookDto;
         }
-
-        
-
 
         public async Task<BookDto> DeleteBook(int bookId)
         {
             var bookToDelete = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookId));
-
             if (bookToDelete is null)
             {
                 throw new BookNotFoundException($"Such event with Id: {bookId} was not found");
@@ -162,23 +153,5 @@ namespace LibraryAPI.Services
 
             return bookDeleted;
         }
-        //public async Task<bool> DeleteBook(BookDto bookDto)
-        //{
-        //    _logger.LogInformation("Deleting a book.");
-
-        //    var book = _mapper.Map<Book>(bookDto);
-        //    try
-        //    {
-        //        await _bookRepository.DeleteAsync(book);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _logger.LogError("Failed to delete the book.");
-        //        throw new Exception("Failed to delete the book. Please enter a valid existing Id.");
-        //    }
-
-        //    _logger.LogInformation("Deleted the book successfully.");
-        //    return true; // Return true if the book was successfully deleted
-        //}
     }
 }

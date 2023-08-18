@@ -4,7 +4,8 @@ namespace LibraryAPI.Core.Entities
 {
     public class AuthorDto 
     {
-        //public int Id { get; set; }
+        [SwaggerSchema(ReadOnly = true)]
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
