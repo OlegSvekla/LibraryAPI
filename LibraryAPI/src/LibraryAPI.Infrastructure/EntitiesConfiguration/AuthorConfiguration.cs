@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Core.Entities;
+﻿using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NHibernate.Criterion;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Infrastructure.ConfigurationForEntity
+namespace LibraryAPI.Infrastructure.EntitiesConfiguration
 {
     public class AuthorConfiguration : IEntityTypeConfiguration<Author>
     {

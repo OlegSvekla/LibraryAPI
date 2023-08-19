@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using LibraryAPI.Core.Entities;
-using LibraryAPI.Core.Interfaces.IRepository;
-using LibraryAPI.Core.Interfaces.IService;
+using LibraryAPI.Domain.Entities;
 using LibraryAPI.Domain.Exeptions;
 using Microsoft.Extensions.Logging;
+using LibraryAPI.Domain.Interfaces.IService;
+using LibraryAPI.Domain.Interfaces.IRepository;
 
-namespace LibraryAPI.Services
+namespace LibraryAPI.BL.Services
 {
     public class BookService : IBookService<BookDto>
     {
@@ -33,9 +33,9 @@ namespace LibraryAPI.Services
             var books = await _bookRepository.GetAllAsync();
             if (books is null)
             {
-                _logger.LogWarning("The base is empty and have any books.");
+                _logger.LogWarning("Book not found.");
 
-                throw new BookNotFoundException("The base is empty and don't have any books.");
+                throw new BookNotFoundException("The base is empty and books not found.");
             }
 
             _logger.LogInformation("Retrieved all books successfully.");
@@ -94,8 +94,7 @@ namespace LibraryAPI.Services
             {
                 _logger.LogError("Failed to add the book.");
 
-                throw new FailedToMakeOperation("Failed to add the book. " +
-                    "Please don't enter a value for the Id field as it is automatically populated.");
+                throw new FailedToMakeOperation("Failed to add the book.");
             }
 
             _logger.LogInformation("Added a new book successfully.");

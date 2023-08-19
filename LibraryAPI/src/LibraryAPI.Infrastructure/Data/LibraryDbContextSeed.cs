@@ -1,5 +1,4 @@
-﻿using LibraryAPI.Core.Entities;
-using LibraryAPI.Infrastructure.Data;
+﻿using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -57,11 +56,20 @@ namespace LibraryAPI.Infrastructure.Data
         {
             return new List<Book>
             {
-                new(1, "Book 1", "1234567890", "Fiction", "Book 1 Description", DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10)),
-                new(2, "Book 2", "0987654321", "Non-Fiction", "Book 2 Description", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)),
-                new(3, "Book 3", "9876543210", "Mystery", "Book 3 Description", DateTime.Now.AddDays(-7), DateTime.Now.AddDays(7)),
-                new(4, "Book 4", "5678901234", "Science Fiction", "Book 4 Description", DateTime.Now.AddDays(-3), DateTime.Now.AddDays(3)),
-                new(5, "Book 5", "4321098765", "Thriller", "Book 5 Description", DateTime.Now.AddDays(-2), DateTime.Now.AddDays(2))
+                new(1, "Book 1", "1234567890", "Fiction", "Book 1 Description",
+                DateTime.Now.AddDays(-10), DateTime.Now.AddDays(10)),
+
+                new(2, "Book 2", "0987654321", "Non-Fiction", "Book 2 Description",
+                DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)),
+
+                new(3, "Book 3", "9876543210", "Mystery", "Book 3 Description",
+                DateTime.Now.AddDays(-7), DateTime.Now.AddDays(7)),
+
+                new(4, "Book 4", "5678901234", "Science Fiction", "Book 4 Description",
+                DateTime.Now.AddDays(-3), DateTime.Now.AddDays(3)),
+
+                new(5, "Book 5", "4321098765", "Thriller", "Book 5 Description",
+                DateTime.Now.AddDays(-2), DateTime.Now.AddDays(2))
             };
         }
     }

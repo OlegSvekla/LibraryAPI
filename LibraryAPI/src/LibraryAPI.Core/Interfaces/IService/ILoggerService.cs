@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryAPI.Core.Interfaces.IService
+namespace LibraryAPI.Domain.Interfaces.IService
 {
     public interface ILoggerService
     {

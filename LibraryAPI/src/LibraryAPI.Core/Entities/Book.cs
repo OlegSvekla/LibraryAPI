@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Core.Entities;
+﻿using LibraryAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Core.Entities
+namespace LibraryAPI.Domain.Entities
 {
     public class Book
     {

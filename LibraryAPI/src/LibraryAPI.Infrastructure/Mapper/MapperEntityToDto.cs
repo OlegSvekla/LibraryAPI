@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Core.Entities;
+﻿using LibraryAPI.Domain.Entities;
 
 namespace LibraryAPI.Infrastructure.Mapper
 {
@@ -8,7 +8,6 @@ namespace LibraryAPI.Infrastructure.Mapper
         {
             CreateMap<Book, BookDto>().ReverseMap();
             CreateMap<Author, AuthorDto>().ReverseMap();
-
         }
     }
 }

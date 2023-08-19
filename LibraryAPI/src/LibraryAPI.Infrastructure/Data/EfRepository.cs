@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Core.Interfaces.IRepository;
+﻿using LibraryAPI.Domain.Interfaces.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;

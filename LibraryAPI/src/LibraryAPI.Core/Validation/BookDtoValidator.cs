@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using LibraryAPI.Core.Entities;
+using LibraryAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Core.Validation
+namespace LibraryAPI.Domain.Validation
 {
     public sealed class BookDtoValidator : AbstractValidator<BookDto>
     {
@@ -14,8 +14,8 @@ namespace LibraryAPI.Core.Validation
         {
             RuleFor(book => book.Title).NotEmpty()
                                        .WithMessage("Title is required.")
-                                       .MaximumLength(100)
-                                       .WithMessage("Title must not exceed 100 characters.");
+                                       .MaximumLength(15)
+                                       .WithMessage("Title must not exceed 15 characters.");
 
             RuleFor(book => book.Isbn).NotEmpty()
                                       .WithMessage("ISBN is required.")
@@ -24,8 +24,8 @@ namespace LibraryAPI.Core.Validation
 
             RuleFor(book => book.Genre).NotEmpty()
                                        .WithMessage("Genre is required.")
-                                       .MaximumLength(50)
-                                       .WithMessage("Genre must not exceed 50 characters.");
+                                       .MaximumLength(10)
+                                       .WithMessage("Genre must not exceed 10 characters.");
 
             RuleFor(book => book.Description).NotEmpty()
                                              .WithMessage("Description is required.");
