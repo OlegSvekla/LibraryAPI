@@ -1,7 +1,7 @@
-﻿using LibraryAPI.Core.Interfaces.IService;
+﻿using LibraryAPI.Domain.Interfaces.IService;
 using Microsoft.Extensions.Logging;
 
-namespace LibraryAPI.Infrastructure.Data
+namespace LibraryAPI.BL.Infrastructure.Data
 {
     public class LoggerService : ILoggerService
     {

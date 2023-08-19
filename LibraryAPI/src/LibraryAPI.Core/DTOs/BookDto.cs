@@ -1,7 +1,7 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
-namespace LibraryAPI.Core.Entities
+namespace LibraryAPI.Domain.Entities
 {
     public class BookDto 
     {

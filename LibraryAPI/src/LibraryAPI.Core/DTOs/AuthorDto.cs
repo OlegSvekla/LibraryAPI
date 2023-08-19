@@ -1,6 +1,6 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
 
-namespace LibraryAPI.Core.Entities
+namespace LibraryAPI.Domain.Entities
 {
     public class AuthorDto 
     {

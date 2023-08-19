@@ -1,5 +1,5 @@
-﻿using LibraryAPI.Core.Entities;
-using LibraryAPI.Infrastructure.ConfigurationForEntity;
+﻿using LibraryAPI.Domain.Entities;
+using LibraryAPI.Infrastructure.EntitiesConfiguration;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Infrastructure.Data

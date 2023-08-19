@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Core.Entities
+namespace LibraryAPI.Domain.Entities
 {
     public class Author
     {

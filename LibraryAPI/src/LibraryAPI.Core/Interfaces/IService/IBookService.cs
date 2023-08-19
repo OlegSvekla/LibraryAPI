@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Core.Interfaces.IService
+namespace LibraryAPI.Domain.Interfaces.IService
 {
     public interface IBookService<T> where T : class
     {
