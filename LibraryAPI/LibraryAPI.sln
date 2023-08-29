@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI", "src\LibraryAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Infrastructure", "src\LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{A4257730-9BE0-4329-A90D-1822356F274E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Domain", "src\LibraryAPI.Core\LibraryAPI.Domain.csproj", "{0C9C54B2-2CE9-49DE-A8CC-F11515EC3581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Domain", "src\LibraryAPI.Domain\LibraryAPI.Domain.csproj", "{0C9C54B2-2CE9-49DE-A8CC-F11515EC3581}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF0FB9DD-C802-40EE-B77F-25B1E234D132}"
 EndProject

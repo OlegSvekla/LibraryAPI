@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LibraryAPI.Core\LibraryAPI.Domain.csproj" />
+    <ProjectReference Include="..\LibraryAPI.Domain\LibraryAPI.Domain.csproj" />
   </ItemGroup>
 
 </Project>
