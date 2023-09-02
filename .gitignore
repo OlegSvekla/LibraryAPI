@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/LibraryAPI/src/LibraryAPI/Logs/logs.json
+/LibraryAPI/.vs
+/LibraryAPI/src/LibraryAPI/bin/Debug/net7.0
+/LibraryAPI/src/LibraryAPI.Domain/obj
+/LibraryAPI/src/LibraryAPI.Infrastructure/bin/Debug/net7.0
+/LibraryAPI/src/LibraryAPI.Infrastructure/obj/Debug/net7.0
+/LibraryAPI/src/LibraryAPI.Domain/bin/Debug/net7.0
+/LibraryAPI/src/LibraryAPI.Infrastructure/obj
+/LibraryAPI/src/LibraryAPI.BL/obj/Debug/net7.0
+/LibraryAPI/src/LibraryAPI.BL/bin/Debug/net7.0
+/LibraryAPI/src/LibraryAPI/obj/Debug/net7.0
