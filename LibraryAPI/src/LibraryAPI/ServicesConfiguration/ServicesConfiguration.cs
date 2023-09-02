@@ -11,7 +11,8 @@ namespace LibraryAPI.ServicesConfiguration
 {
     public class ServicesConfiguration
     {
-        public static void Configuration(IServiceCollection services)
+        public static void Configuration(
+            IServiceCollection services)
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();

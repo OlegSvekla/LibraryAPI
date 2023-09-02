@@ -5,7 +5,8 @@ namespace LibraryAPI.ServicesConfiguration
 {
     public static class SwaggerConfiguration
     {
-        public static void Configuration(IServiceCollection services)
+        public static void Configuration(
+            IServiceCollection services)
         {
             services.AddSwaggerGen();
             services.AddSwaggerGen(_ =>

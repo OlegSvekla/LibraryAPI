@@ -15,7 +15,9 @@ namespace LibraryAPI.ServicesConfiguration
 {
     public static class DbConfiguration
     {
-        public static void Configuration(IConfiguration configuration, IServiceCollection services)
+        public static void Configuration(
+            IConfiguration configuration,
+            IServiceCollection services)
         {
             services.AddDbContext<LibraryDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("LibraryConnection"),

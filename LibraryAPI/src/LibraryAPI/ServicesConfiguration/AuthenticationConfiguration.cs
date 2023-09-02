@@ -4,7 +4,9 @@ namespace LibraryAPI.ServicesConfiguration
 {
     public static class AuthenticationConfiguration
     {
-        public static void Configuration(IConfiguration configuration, IServiceCollection services)
+        public static void Configuration(
+            IConfiguration configuration,
+            IServiceCollection services)
         {
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                     .AddIdentityServerAuthentication(options =>
