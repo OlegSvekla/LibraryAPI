@@ -11,7 +11,7 @@ using IdentityServer4.AccessTokenValidation;
 using FluentValidation;
 using LibraryAPI.Domain.Validation;
 
-namespace LibraryAPI.ServicesConfiguration
+namespace LibraryAPI.Extensions
 {
     public static class DbConfiguration
     {

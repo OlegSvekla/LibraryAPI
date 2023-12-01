@@ -7,7 +7,7 @@ using LibraryAPI.Infrastructure.Mapper;
 using LibraryAPI.BL.Services;
 using LibraryAPI.Domain.Validation;
 
-namespace LibraryAPI.ServicesConfiguration
+namespace LibraryAPI.Extensions
 {
     public class ServicesConfiguration
     {
@@ -25,5 +25,5 @@ namespace LibraryAPI.ServicesConfiguration
 
             services.AddAutoMapper(typeof(MapperEntityToDto));
         }
-    }  
+    }
 }

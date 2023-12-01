@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace LibraryAPI.ServicesConfiguration
+namespace LibraryAPI.Extensions
 {
     public static class LogsConfiguration
     {

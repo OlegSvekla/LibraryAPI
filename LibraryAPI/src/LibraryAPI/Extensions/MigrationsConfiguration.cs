@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.ApplicationBuilderExtensions
 {
-    public static class SeedExtensions
+    public static class MigrationsConfiguration
     {
-        public static IApplicationBuilder UseLibraryDbContextSeed(this IApplicationBuilder app)
+        public static async Task<IApplicationBuilder> RunDbContextMigrations(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
@@ -18,7 +18,7 @@ namespace LibraryAPI.ApplicationBuilderExtensions
                 {
                     var context = serviceProvider.GetRequiredService<LibraryDbContext>();
                     context.Database.Migrate();
-                    LibraryDbContextSeed.SeedAsyncData(context, logger).Wait();
+                    await LibraryDbContextSeed.SeedAsyncData(context, logger);
                 }
                 catch (Exception ex)
                 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace LibraryAPI.ServicesConfiguration
+namespace LibraryAPI.Extensions
 {
     public static class SwaggerConfiguration
     {

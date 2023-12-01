@@ -55,7 +55,7 @@ namespace LibraryAPI.Infrastructure.Data
             return model!;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();

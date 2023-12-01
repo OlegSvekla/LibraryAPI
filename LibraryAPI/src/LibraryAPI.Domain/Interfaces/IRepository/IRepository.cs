@@ -11,7 +11,7 @@ namespace LibraryAPI.Domain.Interfaces.IRepository
         Task<IEnumerable<T>> GetAllAsync(Func<IQueryable<T>,
          IIncludableQueryable<T, object>>? include = null,
          Expression<Func<T, bool>>? expression = null);
-        Task<T> AddAsync(T entity);
+        Task<T> CreateAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<bool> SaveChangesAsync(); 

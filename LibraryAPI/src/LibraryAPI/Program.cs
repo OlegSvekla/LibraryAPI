@@ -1,5 +1,5 @@
 using LibraryAPI.ApplicationBuilderExtensions;
-using LibraryAPI.ServicesConfiguration;
+using LibraryAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ AuthenticationConfiguration.Configuration(builder.Configuration, builder.Service
 
 var app = builder.Build();
 
-app.UseLibraryDbContextSeed();
+await app.RunDbContextMigrations();
 
 if (app.Environment.IsDevelopment())
 {
