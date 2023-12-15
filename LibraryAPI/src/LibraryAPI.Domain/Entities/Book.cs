@@ -1,23 +1,17 @@
-﻿using LibraryAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TaskTracker.Domain.Entities;
 
 namespace LibraryAPI.Domain.Entities
 {
-    public class Book
+    public class Book : BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Isbn { get; set; }
         public string Genre { get; set; }
         public string Description { get; set; }
+
         public DateTime BorrowedDate { get; set; }
         public DateTime ReturnDate { get; set; }
+
         public int AuthorId { get; set; } 
         public Author Author { get; set; }
 

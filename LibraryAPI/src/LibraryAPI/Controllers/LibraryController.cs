@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
-using LibraryAPI.Domain.Entities;
+using LibraryAPI.Domain.DTOs;
 using LibraryAPI.Domain.Interfaces.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
-{ 
-    //[Authorize]
+{
+    [Authorize]
     [ApiController]
     [Route("api/book")]
     public class BookController : ControllerBase
@@ -26,7 +27,6 @@ namespace LibraryAPI.Controllers
         /// <response code="404">The base is Empty. Books weren't found</response>
         [ProducesResponseType(200, Type = typeof(IList<BookDto>))]
         [ProducesResponseType(404)]
-        //delete 404
         [HttpGet("all")]
         public async Task<ActionResult<IList<BookDto>>> GetAll()
         {
@@ -38,7 +38,7 @@ namespace LibraryAPI.Controllers
         /// <param name="id">ID of the Book to get.</param>
         /// <returns>Ok response containing a single book.</returns>
         /// <response code="200">Returns one book.</response>
-        /// <response code="404">The book with this Id was not found.</response>
+        /// <response code="404">The book by Id was not found.</response>
         [ProducesResponseType(200, Type = typeof(BookDto))]
         [ProducesResponseType(404)]
         [HttpGet("{id}")]
@@ -52,10 +52,10 @@ namespace LibraryAPI.Controllers
         /// <param name="isbn">Isbn of the Book to get.</param>
         /// <returns>Ok response containing a single book.</returns>
         /// <response code="200">Returns one book.</response>
-        /// <response code="404">The book with this Isbn was not found.</response>
+        /// <response code="404">The book by Isbn was not found.</response>
         [ProducesResponseType(200, Type = typeof(BookDto))]
         [ProducesResponseType(404)]
-        [HttpPut("books/{isbn}")]
+        [HttpPut("{isbn}")]
         public async Task<ActionResult<IList<BookDto>>> GetByIsbn(string isbn)
         {
             var books = await _bookService.GetByIsbnAsync(isbn);
@@ -84,7 +84,7 @@ namespace LibraryAPI.Controllers
         /// <param name="id">The ID of the Book to be updated.</param>
         /// <param name="updatedBookDto">The updated Book data.</param>
         /// <response code="204">Book is successfuly updated.</response>
-        /// <response code="404">The Task by Id was not found.</response>
+        /// <response code="404">The book by Id was not found.</response>
         [ProducesResponseType(204, Type = typeof(BookDto))]
         [ProducesResponseType(404)]
         [HttpPut("{id:int}")]
@@ -103,7 +103,7 @@ namespace LibraryAPI.Controllers
       
         /// <param name="id">The ID of the Book to be removed.</param>
         /// <response code="204">The book was successfully removed.</response>
-        /// <response code="404">The book with this Id was not found.</response>
+        /// <response code="404">The book by Id was not found.</response>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(204, Type = typeof(BookDto))]
         [ProducesResponseType(404)]

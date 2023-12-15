@@ -1,11 +1,7 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-
-namespace LibraryAPI.Domain.Entities
+﻿namespace LibraryAPI.Domain.DTOs
 {
-    public class AuthorDto 
+    public class AuthorDto : BaseEntityDto
     {
-        [SwaggerSchema(ReadOnly = true)]
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }

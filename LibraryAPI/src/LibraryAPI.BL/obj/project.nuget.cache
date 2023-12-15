@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5YNZ0rWMpaAYKYpDedWS4mwbV5nZ+7lBkerIehZ8uKzKJsQk/oGzrg4vE1AfMEBNTTUIJg9KXkP8jYCocLDUwg==",
+  "dgSpecHash": "A7KLKBO8KSNeUg4EbbOX7mT7JwRlo2yBHyx3lHBnQ0XPHwtFSV03icBZGsTMDaN5qfrv9LTxB1LxudlVMdA6Ng==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
+  "projectFilePath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olegs\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\olegs\\.nuget\\packages\\fluentvalidation\\11.7.0\\fluentvalidation.11.7.0.nupkg.sha512",

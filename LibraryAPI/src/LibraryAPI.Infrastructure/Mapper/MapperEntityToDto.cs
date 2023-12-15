@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Domain.Entities;
+﻿using LibraryAPI.Domain.DTOs;
+using LibraryAPI.Domain.Entities;
 
 namespace LibraryAPI.Infrastructure.Mapper
 {

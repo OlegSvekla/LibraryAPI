@@ -6,6 +6,9 @@ using LibraryAPI.Infrastructure.Data;
 using LibraryAPI.Infrastructure.Mapper;
 using LibraryAPI.BL.Services;
 using LibraryAPI.Domain.Validation;
+using TaskTracker.Domain.Interfaces.IRepositories;
+using TaskTracker.Infrastructure.Data.Repositories;
+using LibraryAPI.Domain.DTOs;
 
 namespace LibraryAPI.Extensions
 {
@@ -17,7 +20,9 @@ namespace LibraryAPI.Extensions
             services.AddControllers();
             services.AddEndpointsApiExplorer();
 
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IBookRepository, BookRepository>();
+
             services.AddScoped<IBookService<BookDto>, BookService>();
 
             services.AddScoped<IValidator<BookDto>, BookDtoValidator>();

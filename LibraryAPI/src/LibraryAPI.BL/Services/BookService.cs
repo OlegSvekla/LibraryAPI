@@ -3,18 +3,19 @@ using FluentValidation;
 using LibraryAPI.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using LibraryAPI.Domain.Interfaces.IService;
-using LibraryAPI.Domain.Interfaces.IRepository;
+using LibraryAPI.Domain.DTOs;
+using TaskTracker.Domain.Interfaces.IRepositories;
 
 namespace LibraryAPI.BL.Services
 {
     public class BookService : IBookService<BookDto>
     {
-        private readonly IRepository<Book> _bookRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<BookService> _logger;
         private readonly IValidator<BookDto> _validator;
 
-        public BookService(IRepository<Book> bookRepository,
+        public BookService(IBookRepository bookRepository,
             IMapper mapper,
             ILogger<BookService> logger,
             IValidator<BookDto> validator)

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OrHJz5vl+cLTvQ9nhXdw+05VJki6xSFQE9NwnPgnTfgKIM0FEYjlWsZ3tbSpYvyldClkTd3g+mD82ZXFgSXjuA==",
+  "dgSpecHash": "d3tzy02Xo7OBmaVqf6Eci7YwudwEm2YE+eHSR2hH9yHrqNb352OpLkF709A4sROlfqoN7lELQFz7fdjNSwDINQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI\\LibraryAPI.csproj",
+  "projectFilePath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI\\LibraryAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olegs\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
     "C:\\Users\\olegs\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
