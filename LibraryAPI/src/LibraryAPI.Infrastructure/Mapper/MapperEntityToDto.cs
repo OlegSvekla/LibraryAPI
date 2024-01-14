@@ -1,5 +1,8 @@
 ﻿using LibraryAPI.Domain.DTOs;
 using LibraryAPI.Domain.Entities;
+using LibraryAPI.Domain.Entities.Auth;
+using LibraryAPI.Domain.Request;
+using LibraryAPI.Domain.Response;
 
 namespace LibraryAPI.Infrastructure.Mapper
 {
@@ -9,6 +12,8 @@ namespace LibraryAPI.Infrastructure.Mapper
         {
             CreateMap<Book, BookDto>().ReverseMap();
             CreateMap<Author, AuthorDto>().ReverseMap();
+            CreateMap<User, RegisterRequest>().ReverseMap();
+            CreateMap<User, UserDetailsResponse>().ReverseMap();
         }
     }
 }

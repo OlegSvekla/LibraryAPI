@@ -2,7 +2,7 @@
 using LibraryAPI.Infrastructure.Data;
 using TaskTracker.Domain.Interfaces.IRepositories;
 
-namespace TaskTracker.Infrastructure.Data.Repositories
+namespace LibraryAPI.Infrastructure.Data.Repositories
 {
     public class BookRepository : BaseRepository<Book>, IBookRepository
     {

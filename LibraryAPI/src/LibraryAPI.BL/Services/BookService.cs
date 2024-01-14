@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using LibraryAPI.Domain.Entities;
-using Microsoft.Extensions.Logging;
-using LibraryAPI.Domain.Interfaces.IService;
 using LibraryAPI.Domain.DTOs;
+using LibraryAPI.Domain.Interfaces.IService;
+using Microsoft.Extensions.Logging;
 using TaskTracker.Domain.Interfaces.IRepositories;
 
 namespace LibraryAPI.BL.Services
@@ -29,7 +28,6 @@ namespace LibraryAPI.BL.Services
         public async Task<IList<BookDto>> GetAllAsync()
         {
             var books = await _bookRepository.GetAllAsync();
-            if (books is null) return null;
 
             return _mapper.Map<IList<BookDto>>(books);
         }
@@ -37,7 +35,7 @@ namespace LibraryAPI.BL.Services
         public async Task<BookDto> GetByIdAsync(int id)
         {
             var book = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(id));
-            if (book is null) return null;
+            if (book is null) return ThrowBookNotFoundException();
 
             return _mapper.Map<BookDto>(book);
         }
@@ -45,17 +43,20 @@ namespace LibraryAPI.BL.Services
         public async Task<IList<BookDto>> GetByIsbnAsync(string isbn)
         {
             var book = await _bookRepository.GetOneByAsync(expression: _ => _.Isbn.Equals(isbn));
-            if (book is null) return null;
 
             return new List<BookDto> { _mapper.Map<BookDto>(book) };
         }
 
         public async Task<bool> CreateAsync(BookDto bookDto)
         {
-            var book = _mapper.Map<Book>(bookDto);
+            var validationResult = await _validator.ValidateAsync(bookDto);
+            if (!validationResult.IsValid)            
+                throw new ValidationException(validationResult.ToString());            
 
-            var result = await _bookRepository.CreateAsync(book);
-            if (result is null) return false;
+            var book = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookDto.Id));
+            if (book is not null) throw new ValidationException("Book is already existing");
+
+            await _bookRepository.CreateAsync(book);
 
             return true;
         }
@@ -63,7 +64,7 @@ namespace LibraryAPI.BL.Services
         public async Task<bool> UpdateAsync(int id, BookDto updatedBookDto)
         {
             var existingBook = await _bookRepository.GetOneByAsync(expression: book => book.Id == id);
-            if (existingBook is null) return false;
+            if (existingBook is null) ThrowBookNotFoundException();
             else
             {
                 existingBook.Title = updatedBookDto.Title;
@@ -82,11 +83,14 @@ namespace LibraryAPI.BL.Services
         public async Task<bool> DeleteAsync(int bookId)
         {
             var bookToDelete = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookId));
-            if (bookToDelete is null) return false;
+            if (bookToDelete is null) ThrowBookNotFoundException();
 
             await _bookRepository.DeleteAsync(bookToDelete!);
 
             return true;
         }
+
+        private BookDto ThrowBookNotFoundException() =>
+            throw new NotFoundException("Book not found");
     }
 }

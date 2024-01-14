@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using TaskTracker.Domain.Entities;
 
-namespace LibraryAPI.Infrastructure.Data
+namespace LibraryAPI.Infrastructure.Data.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {

@@ -12,7 +12,9 @@ namespace LibraryAPI.Domain.Entities.Auth
 
         public string Token { get; set; }
         public string? CreatedByIp { get; set; }
+
         public string? RevokedByIp { get; set; }
+
         public string? ReplacedByToken { get; set; }
         public string? ReasonRevoked { get; set; }
 

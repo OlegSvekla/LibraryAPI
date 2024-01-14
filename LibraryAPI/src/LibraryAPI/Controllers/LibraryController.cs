@@ -1,15 +1,16 @@
 ﻿using FluentValidation;
+using GelionTransApi.Controllers;
 using LibraryAPI.Domain.DTOs;
 using LibraryAPI.Domain.Interfaces.IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AuthorizeAttribute = LibraryAPI.Filters.AuthorizeAttribute;
 
 namespace LibraryAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/book")]
-    public class BookController : ControllerBase
+    public class BookController : BaseController
     {
         private readonly IBookService<BookDto> _bookService;
         private readonly IValidator<BookDto> _validator;
@@ -32,7 +33,7 @@ namespace LibraryAPI.Controllers
         {
             var books = await _bookService.GetAllAsync();
 
-            return books == null ? NotFound("Books was not found") : Ok(books);
+            return Ok(books);
         }
 
         /// <param name="id">ID of the Book to get.</param>
@@ -46,7 +47,7 @@ namespace LibraryAPI.Controllers
         {
             var book = await _bookService.GetByIdAsync(id);
 
-            return book == null ? NotFound("Book not found by Id") : Ok(book);
+            return Ok(book);
         }
  
         /// <param name="isbn">Isbn of the Book to get.</param>
@@ -60,7 +61,7 @@ namespace LibraryAPI.Controllers
         {
             var books = await _bookService.GetByIsbnAsync(isbn);
 
-            return books == null ? NotFound("Books not found by ISBN") : Ok(books);
+            return Ok(books);
         }
 
         /// <param name="bookDto">The Book to be created.</param>
@@ -70,15 +71,9 @@ namespace LibraryAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BookDto bookDto)
         {
-            var validationResult = await _validator.ValidateAsync(bookDto);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.ToString());
-            }
-
             var success = await _bookService.CreateAsync(bookDto);
 
-            return success == false ? BadRequest("This Book is already existing") : Ok();
+            return CreatedAtAction(nameof(Create), success);
         }
 
         /// <param name="id">The ID of the Book to be updated.</param>
@@ -96,9 +91,9 @@ namespace LibraryAPI.Controllers
                 return BadRequest(validationResult.ToString());
             }
 
-            var success = await _bookService.UpdateAsync(id, updatedBookDto);
+            await _bookService.UpdateAsync(id, updatedBookDto);
 
-            return success == false ? NotFound("Book not found by Id") : NoContent();
+            return NoContent();
         }
       
         /// <param name="id">The ID of the Book to be removed.</param>
@@ -109,9 +104,9 @@ namespace LibraryAPI.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteBook([FromRoute] int id)
         {
-            var success = await _bookService.DeleteAsync(id);
+            await _bookService.DeleteAsync(id);
 
-            return success == false ? NotFound("Book not found by Id") : NoContent();
+            return NoContent();
         }
     }
 }
