@@ -21,14 +21,10 @@ namespace LibraryAPI.Filters
             if (allowAnonymous)
                 return;
 
-            //var localizer = context.HttpContext.RequestServices.GetService<IStringLocalizer<SharedResource>>()
-            //    ?? throw new ArgumentNullException("Localizer");
-
             var account = (User?)context.HttpContext.Items["Account"];
 
             if (account == null)
             {
-                // not logged in or role not authorized
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
                 return;
             }

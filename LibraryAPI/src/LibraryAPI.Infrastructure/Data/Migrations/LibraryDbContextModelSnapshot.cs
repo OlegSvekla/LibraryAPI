@@ -40,20 +40,8 @@ namespace LibraryAPI.Infrastructure.Data.Migrations
                     b.Property<DateTime?>("Expires")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReasonRevoked")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("ReplacedByToken")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<DateTime?>("Revoked")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("RevokedByIp")
-                        .HasMaxLength(45)
-                        .HasColumnType("nvarchar(45)");
 
                     b.Property<string>("Token")
                         .IsRequired()
@@ -83,36 +71,16 @@ namespace LibraryAPI.Infrastructure.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastAccessedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<int>("OrganisationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("PasswordReset")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ResetToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ResetTokenExpires")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");

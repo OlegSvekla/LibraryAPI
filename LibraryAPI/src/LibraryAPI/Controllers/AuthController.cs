@@ -1,7 +1,7 @@
 ﻿using LibraryAPI.Domain.Entities.Auth;
-using LibraryAPI.Domain.Interfaces.IService;
-using LibraryAPI.Domain.Request;
-using LibraryAPI.Domain.Response;
+using LibraryAPI.Domain.Interfaces.IServices;
+using LibraryAPI.Domain.Requests;
+using LibraryAPI.Domain.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +24,7 @@ namespace GelionTransApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult<UserDetailsResponse>> Authenticate(BaseAuhtRequest model)
+        public async Task<ActionResult<UserDetailsResponse>> Authenticate(AuthRegisterRequest model)
         {
             var response = await accountService.Authenticate(model, GetIpAddressFromConnection());
 
@@ -35,16 +35,14 @@ namespace GelionTransApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterRequest model)
+        public async Task<IActionResult> Register(AuthRegisterRequest model)
         {
             if (!IsAnonymousSession)
-                throw new ValidationException("PleaseLogoutBeforeRegistration");
+                throw new ValidationException("Please logout before registration");
 
             await accountService.RegisterAsync(model, Role.User);
 
-
-
-            return Ok(new { message = "RegistrationSuccessful" });
+            return Ok(new { message = "Registration successful. Please verify your email" });
         }
 
         [AllowAnonymous]
@@ -53,7 +51,7 @@ namespace GelionTransApi.Controllers
         {
             await accountService.VerifyEmailAsync(model.Token);
 
-            return Ok(new { message = "VerificationSuccessful" });
+            return Ok(new { message = "Verification successful" });
         }
 
         private void SetTokenCookie(string token)
@@ -73,7 +71,7 @@ namespace GelionTransApi.Controllers
             return Request.Headers.ContainsKey("X-Forwarded-For")
                 ? Request.Headers["X-Forwarded-For"]
                 : HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()
-                    ?? throw new ApplicationException(/*localizer["InvalidRemoteIp"]*/);
+                    ?? throw new ApplicationException("Invalid Remote Ip");
         }
     }
 }

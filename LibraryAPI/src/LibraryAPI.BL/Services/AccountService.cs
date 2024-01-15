@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using LibraryApi.BL.Validators.IValidators;
 using LibraryAPI.BL.Helpers;
+using LibraryAPI.Domain.Constants;
 using LibraryAPI.Domain.Entities.Auth;
-using LibraryAPI.Domain.Interfaces.IRepository;
-using LibraryAPI.Domain.Interfaces.IService;
-using LibraryAPI.Domain.Request;
-using LibraryAPI.Domain.Response;
+using LibraryAPI.Domain.Interfaces.IRepositories;
+using LibraryAPI.Domain.Interfaces.IServices;
+using LibraryAPI.Domain.Requests;
+using LibraryAPI.Domain.Responses;
 using LibraryAPI.Infrastructure.Settings;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
@@ -15,10 +18,12 @@ namespace LibraryAPI.BL.Services
     public class AccountService : IAccountService
     {
         private readonly IUserRepository userRepository;
+        private readonly IEmailService emailService;
         private readonly IJwtUtils jwtUtils;
         private readonly IMapper mapper;
         private readonly AuthSettings appSettings;
-        private readonly IEmailService emailService;
+        private readonly IAuthRequestValidator authRequestValidator;
+        private readonly ILogger<AccountService> logger;
 
         public AccountService(
 
@@ -26,21 +31,27 @@ namespace LibraryAPI.BL.Services
             IMapper mapper,
             IUserRepository userRepository,
             IOptions<AuthSettings> appSettings,
-            IEmailService emailService)
+            IEmailService emailService,
+            IAuthRequestValidator authRequestValidator,
+            ILogger<AccountService> logger)
         {
-            //this.context = context;
             this.jwtUtils = jwtUtils;
             this.mapper = mapper;
             this.userRepository = userRepository;
             this.appSettings = appSettings.Value;
             this.emailService = emailService;
+            this.authRequestValidator = authRequestValidator;
+            this.logger = logger;
         }
 
-        public async Task<UserDetailsResponse> Authenticate(BaseAuhtRequest model, string? ipAddress)
+        public async Task<UserDetailsResponse> Authenticate(AuthRegisterRequest model, string? ipAddress)
         {
-            var user = await userRepository.GetOneByAsync(expression: _ => _.Email.Equals(model.Email));
+            authRequestValidator.Validate(model);
 
-            //user = ValidateUser(user, model.Password);
+            var user = await userRepository.GetOneByAsync(expression: _ => _.Email.Equals(model.Email),
+                cancellationToken: CancellationToken.None);
+
+            ValidateUser(user, model.Password);
 
             var refreshToken = jwtUtils.GenerateRefreshToken(ipAddress);
             user.RefreshTokens.Add(refreshToken);
@@ -51,53 +62,67 @@ namespace LibraryAPI.BL.Services
             await userRepository.UpdateAsync(user);
 
             var response = mapper.Map<UserDetailsResponse>(user);
-
             response.RefreshToken = refreshToken.Token;
             response.JwtToken = jwtUtils.GenerateJwtToken(user);
 
             return response;
         }
 
-        public async Task<User> RegisterAsync<T>(T model, Role role) where T : RegisterRequest
+        public async Task<User> RegisterAsync<T>(T model, Role role) where T : AuthRegisterRequest
         {
-            //accountValidator.Validate(model); напиши валидатор
+            authRequestValidator.Validate(model);
 
-            var user = await userRepository.GetOneByAsync(expression: _ => _.Id.Equals(model.Email));
-            if (user is not null) throw new ValidationException("User is already existing");
+            var user = await userRepository.GetOneByAsync(expression: _ => _.Email.Equals(model.Email),
+                cancellationToken: CancellationToken.None);
+            if (user is not null)
+            {
+                logger.LogInformation("User is already existing. There is ValidationException.");
+                throw new ValidationException("User is already existing");
+            }
 
             var account = mapper.Map<User>(model);
+
             account.Role = role;
-            account.VerificationToken = GenerateVerificationToken();
+            account.VerificationToken = await GenerateVerificationToken();
             account.PasswordHash = PasswordHasher.HashPassword(model.Password);
 
-            var created = await userRepository.CreateAsync(account);
+            var created = await userRepository.CreateAsync(account, cancellationToken: CancellationToken.None);
 
-            emailService.Send(created, subject: $"FromLibraryApi");
+            emailService.Send(created, subject: Constants.Email.Subject);
 
             return created;
         }
 
         public async Task<User> VerifyEmailAsync(string token)
         {
-            ArgumentNullException.ThrowIfNull(token);
+            if (token is null)
+            {
+                logger.LogInformation("VerificationToken cannot be null. There is ArgumentNullException.");
+                throw new ArgumentNullException();
+            }
 
-            var account = await userRepository.GetOneByAsync(expression: _ => _.VerificationToken.Equals(token));
+            var account = await userRepository.GetOneByAsync(expression: _ => _.VerificationToken.Equals(token),
+                cancellationToken: CancellationToken.None);
 
             account.Verified = DateTime.UtcNow;
             account.VerificationToken = null;
+            account.IsVerified = true;
 
             await userRepository.UpdateAsync(account);
 
             return account;
         }
 
-        private string GenerateVerificationToken()
+        private async Task<string> GenerateVerificationToken()
         {
             var token = Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
 
-            var existingtoken = userRepository.GetOneByAsync(expression: _ => _.VerificationToken == token);
-            if (existingtoken == null)
-                return GenerateVerificationToken();
+            var userWithAlreadyExistingToken = await userRepository.GetOneByAsync(expression: _ => _.VerificationToken == token,
+                cancellationToken: CancellationToken.None);
+            if (userWithAlreadyExistingToken is not null)
+            {
+                return await GenerateVerificationToken();
+            }
 
             return token;
         }
@@ -112,13 +137,22 @@ namespace LibraryAPI.BL.Services
         private User ValidateUser(User? user, string password)
         {
             if (user is null)
-                throw new NotFoundException("UserNotFound");
+            {
+                logger.LogInformation($"User not found Exception.");
+                throw new NotFoundException("User Not Found");
+            }
 
             if (!user.IsVerified)
-                throw new AppException("EmailNotVerified");
+            {
+                logger.LogInformation("Email Not Verified. There is AppException.");
+                throw new AppException("Email Not Verified");
+            }
 
             if (!PasswordHasher.Verify(password, user.PasswordHash))
-                throw new AppException("EmailOrPasswordIncorrect");
+            {
+                logger.LogInformation("Password Incorrect. There is AppException.");
+                throw new AppException("Password Incorrect");
+            }
 
             return user;
         }

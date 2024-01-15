@@ -1,26 +1,22 @@
-﻿using FluentValidation;
-using GelionTransApi.Controllers;
-using LibraryAPI.Domain.DTOs;
-using LibraryAPI.Domain.Interfaces.IService;
+﻿using GelionTransApi.Controllers;
+using LibraryAPI.BL.DTOs;
+using LibraryAPI.Domain.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 using AuthorizeAttribute = LibraryAPI.Filters.AuthorizeAttribute;
 
 namespace LibraryAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/book")]
     public class BookController : BaseController
     {
         private readonly IBookService<BookDto> _bookService;
-        private readonly IValidator<BookDto> _validator;
 
         public BookController(
-            IBookService<BookDto> bookService,
-            IValidator<BookDto> validator)
+            IBookService<BookDto> bookService)
         {
             _bookService = bookService;
-            _validator = validator;
         }
      
         /// <returns>Ok response containing books collection.</returns>
@@ -56,7 +52,7 @@ namespace LibraryAPI.Controllers
         /// <response code="404">The book by Isbn was not found.</response>
         [ProducesResponseType(200, Type = typeof(BookDto))]
         [ProducesResponseType(404)]
-        [HttpPut("{isbn}")]
+        [HttpGet("{isbn}")]
         public async Task<ActionResult<IList<BookDto>>> GetByIsbn(string isbn)
         {
             var books = await _bookService.GetByIsbnAsync(isbn);
@@ -85,12 +81,6 @@ namespace LibraryAPI.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateBook([FromRoute] int id, [FromBody] BookDto updatedBookDto)
         {
-            var validationResult = await _validator.ValidateAsync(updatedBookDto);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.ToString());
-            }
-
             await _bookService.UpdateAsync(id, updatedBookDto);
 
             return NoContent();

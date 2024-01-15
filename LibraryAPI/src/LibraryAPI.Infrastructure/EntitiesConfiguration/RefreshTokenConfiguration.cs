@@ -13,9 +13,6 @@ namespace LibraryAPI.Infrastructure.EntitiesConfiguration
             builder.Property(rt => rt.Token).IsRequired().HasMaxLength(255);
 
             builder.Property(rt => rt.CreatedByIp).HasMaxLength(45);
-            builder.Property(rt => rt.RevokedByIp).HasMaxLength(45);
-            builder.Property(rt => rt.ReplacedByToken).HasMaxLength(255);
-            builder.Property(rt => rt.ReasonRevoked).HasMaxLength(255);
 
             builder.HasOne(rt => rt.User)
                 .WithMany(u => u.RefreshTokens)

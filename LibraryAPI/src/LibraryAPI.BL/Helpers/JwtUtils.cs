@@ -1,6 +1,7 @@
-﻿using LibraryAPI.Domain.Constants;
+﻿using LibraryAPI.BL.Helpers;
+using LibraryAPI.Domain.Constants;
 using LibraryAPI.Domain.Entities.Auth;
-using LibraryAPI.Domain.Interfaces.IRepository;
+using LibraryAPI.Domain.Interfaces.IRepositories;
 using LibraryAPI.Infrastructure.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -28,8 +29,6 @@ namespace LibraryAPI.BL.Helpers
 
         public string GenerateJwtToken(User account)
         {
-            //TODO: remove after testing
-
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Secret));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
@@ -83,20 +82,13 @@ namespace LibraryAPI.BL.Helpers
         {
             var refreshToken = new RefreshToken
             {
-                // token is a cryptographically strong random sequence of values
                 Token = Convert.ToHexString(RandomNumberGenerator.GetBytes(64)),
-                // token is valid for 7 days
+                Expires = DateTime.UtcNow.AddDays(7),
+                Created = DateTime.UtcNow,
                 CreatedByIp = ipAddress
             };
 
-            //// ensure token is unique by checking against db
-            //var tokenIsUnique = userRepository.!Users.Any(a => a.RefreshTokens.Any(t => t.Token == refreshToken.Token));
-
-            //if (!tokenIsUnique)
-            //    return GenerateRefreshToken(ipAddress);
-
             return refreshToken;
         }
-
     }
 }

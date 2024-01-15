@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace LibraryAPI.BL
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException()
-        {
-        }
+        public NotFoundException() { }
 
         public NotFoundException(string message)
             : base(message) { }

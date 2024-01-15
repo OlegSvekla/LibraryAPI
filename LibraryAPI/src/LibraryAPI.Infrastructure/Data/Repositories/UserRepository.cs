@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Domain.Entities.Auth;
-using LibraryAPI.Domain.Interfaces.IRepository;
+using LibraryAPI.Domain.Interfaces.IRepositories;
 
 namespace LibraryAPI.Infrastructure.Data.Repositories
 {

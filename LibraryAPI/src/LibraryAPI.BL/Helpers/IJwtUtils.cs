@@ -9,6 +9,5 @@ namespace LibraryAPI.BL.Helpers
         public int? ValidateJwtToken(string? token);
 
         public RefreshToken GenerateRefreshToken(string? ipAddress);
-
     }
 }

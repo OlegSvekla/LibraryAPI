@@ -1,5 +1,4 @@
 ﻿using LibraryAPI.Domain.Entities;
-using LibraryAPI.Infrastructure.Data;
 using TaskTracker.Domain.Interfaces.IRepositories;
 
 namespace LibraryAPI.Infrastructure.Data.Repositories

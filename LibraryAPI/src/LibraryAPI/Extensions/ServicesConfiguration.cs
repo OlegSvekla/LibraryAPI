@@ -1,10 +1,10 @@
-﻿using FluentValidation;
+﻿using LibraryApi.BL.Validators.IValidators;
+using LibraryAPI.BL.DTOs;
 using LibraryAPI.BL.Helpers;
 using LibraryAPI.BL.Services;
-using LibraryAPI.Domain.DTOs;
-using LibraryAPI.Domain.Interfaces.IRepository;
-using LibraryAPI.Domain.Interfaces.IService;
-using LibraryAPI.Domain.Validation;
+using LibraryAPI.BL.Validators;
+using LibraryAPI.Domain.Interfaces.IRepositories;
+using LibraryAPI.Domain.Interfaces.IServices;
 using LibraryAPI.Infrastructure.Data.Repositories;
 using LibraryAPI.Infrastructure.Mapper;
 using TaskTracker.Domain.Interfaces.IRepositories;
@@ -25,13 +25,14 @@ namespace LibraryAPI.Extensions
 
             services.AddScoped<IBookService<BookDto>, BookService>();
             services.AddScoped<IAccountService, AccountService>();
-
-            services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IEmailService, EmailService>();
 
+            services.AddScoped<IJwtUtils, JwtUtils>();
 
-            services.AddScoped<IValidator<BookDto>, BookDtoValidator>();
-            services.AddScoped<IValidator<AuthorDto>, AuthorDtoValidator>();
+            services.AddScoped<IAuthRequestValidator, AuthRequestValidator>();
+            services.AddScoped<IAuthorDtoValidator, AuthorDtoValidator>();
+            services.AddScoped<IBookDtoValidator, BookDtoValidator>();
+            services.AddScoped<INameValidator, NameValidator>();
 
             services.AddAutoMapper(typeof(MapperEntityToDto));
         }
