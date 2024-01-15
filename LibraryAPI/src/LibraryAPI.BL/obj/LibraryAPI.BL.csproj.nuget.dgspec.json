@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj": {}
+    "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj": {
+    "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
+        "projectUniqueName": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
         "projectName": "LibraryAPI.BL",
-        "projectPath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
+        "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
         "packagesPath": "C:\\Users\\olegs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\obj\\",
+        "outputPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\olegs\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
-                "projectPath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj"
+              "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
+                "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj"
+              },
+              "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj"
               }
             }
           }
@@ -47,6 +50,22 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.21.0, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.21.0, )"
             }
           },
           "imports": [
@@ -69,14 +88,14 @@
         }
       }
     },
-    "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
+    "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj",
         "projectName": "LibraryAPI.Domain",
-        "projectPath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj",
+        "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj",
         "packagesPath": "C:\\Users\\olegs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olegs\\Source\\Repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\obj\\",
+        "outputPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\olegs\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -116,6 +135,95 @@
             "Swashbuckle.AspNetCore.Annotations": {
               "target": "Package",
               "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj",
+        "projectName": "LibraryAPI.Infrastructure",
+        "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\olegs\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\olegs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
+                "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "FluentNHibernate": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
             }
           },
           "imports": [

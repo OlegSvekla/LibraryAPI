@@ -1,92 +1,120 @@
 ﻿using AutoMapper;
-using FluentValidation;
-using LibraryAPI.Domain.Entities;
+using LibraryApi.BL.Validators.IValidators;
+using LibraryAPI.BL.DTOs;
+using LibraryAPI.Domain.Interfaces.IServices;
 using Microsoft.Extensions.Logging;
-using LibraryAPI.Domain.Interfaces.IService;
-using LibraryAPI.Domain.DTOs;
+using System.ComponentModel.DataAnnotations;
 using TaskTracker.Domain.Interfaces.IRepositories;
 
 namespace LibraryAPI.BL.Services
 {
     public class BookService : IBookService<BookDto>
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IMapper _mapper;
-        private readonly ILogger<BookService> _logger;
-        private readonly IValidator<BookDto> _validator;
+        private readonly IBookRepository bookRepository;
+        private readonly IBookDtoValidator bookDtoValidator;
+        private readonly IAuthorDtoValidator authorDtoValidator;
+        private readonly IMapper mapper;
+        private readonly ILogger<BookService> logger;
 
         public BookService(IBookRepository bookRepository,
+            IBookDtoValidator bookDtoValidator,
+            IAuthorDtoValidator authorDtoValidator,
             IMapper mapper,
-            ILogger<BookService> logger,
-            IValidator<BookDto> validator)
+            ILogger<BookService> logger)
         {
-            _bookRepository = bookRepository;
-            _mapper = mapper;
-            _logger = logger;
-            _validator = validator;
+            this.bookRepository = bookRepository;
+            this.bookDtoValidator = bookDtoValidator;
+            this.authorDtoValidator = authorDtoValidator;
+            this.mapper = mapper;
+            this.logger = logger;
         }
 
         public async Task<IList<BookDto>> GetAllAsync()
         {
-            var books = await _bookRepository.GetAllAsync();
-            if (books is null) return null;
+            var books = await bookRepository.GetAllAsync(cancellationToken: CancellationToken.None);
 
-            return _mapper.Map<IList<BookDto>>(books);
+            return mapper.Map<IList<BookDto>>(books);
         }
 
         public async Task<BookDto> GetByIdAsync(int id)
         {
-            var book = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(id));
-            if (book is null) return null;
-
-            return _mapper.Map<BookDto>(book);
+            var book = await bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(id),
+                cancellationToken: CancellationToken.None);
+            if (book is null) 
+            {
+                logger.LogInformation("Book not found Exception");
+                ThrowBookNotFoundException();
+            }
+            return mapper.Map<BookDto>(book);
         }
 
         public async Task<IList<BookDto>> GetByIsbnAsync(string isbn)
         {
-            var book = await _bookRepository.GetOneByAsync(expression: _ => _.Isbn.Equals(isbn));
-            if (book is null) return null;
+            var book = await bookRepository.GetOneByAsync(expression: _ => _.Isbn.Equals(isbn),
+                cancellationToken: CancellationToken.None);
 
-            return new List<BookDto> { _mapper.Map<BookDto>(book) };
+            return new List<BookDto> { mapper.Map<BookDto>(book) };
         }
 
         public async Task<bool> CreateAsync(BookDto bookDto)
         {
-            var book = _mapper.Map<Book>(bookDto);
+            bookDtoValidator.Validate(bookDto);
+            authorDtoValidator.Validate(bookDto.Author);        
 
-            var result = await _bookRepository.CreateAsync(book);
-            if (result is null) return false;
+            var book = await bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookDto.Id),
+                cancellationToken: CancellationToken.None);
+            if (book is not null)
+            {
+                logger.LogInformation("Book is already existing. There is ValidationException.");
+                throw new ValidationException("Book is already existing.");
+            }
+
+            var entityBook = mapper.Map(bookDto, book);
+
+            await bookRepository.CreateAsync(entityBook, cancellationToken: CancellationToken.None);
 
             return true;
         }
 
         public async Task<bool> UpdateAsync(int id, BookDto updatedBookDto)
         {
-            var existingBook = await _bookRepository.GetOneByAsync(expression: book => book.Id == id);
-            if (existingBook is null) return false;
+            bookDtoValidator.Validate(updatedBookDto);
+            authorDtoValidator.Validate(updatedBookDto.Author);
+
+            var existingBook = await bookRepository.GetOneByAsync(expression: book => book.Id.Equals(id),
+                cancellationToken: CancellationToken.None);
+            if (existingBook is null)
+            {
+                logger.LogInformation("Book not found Exception.");
+                ThrowBookNotFoundException();
+            } 
             else
             {
-                existingBook.Title = updatedBookDto.Title;
-                existingBook.Isbn = updatedBookDto.Isbn;
-                existingBook.Genre = updatedBookDto.Genre;
-                existingBook.Description = updatedBookDto.Description;
-                existingBook.BorrowedDate = updatedBookDto.BorrowedDate;
-                existingBook.ReturnDate = updatedBookDto.ReturnDate;
+                updatedBookDto.Id = id;
+                mapper.Map(updatedBookDto, existingBook);
             }
 
-            await _bookRepository.UpdateAsync(existingBook);
+            await bookRepository.UpdateAsync(existingBook, cancellationToken: CancellationToken.None);
 
             return true;
         }
 
         public async Task<bool> DeleteAsync(int bookId)
         {
-            var bookToDelete = await _bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookId));
-            if (bookToDelete is null) return false;
+            var bookToDelete = await bookRepository.GetOneByAsync(expression: _ => _.Id.Equals(bookId),
+                cancellationToken: CancellationToken.None);
+            if (bookToDelete is null)
+            {
+                logger.LogInformation("Book not found Exception.");
+                ThrowBookNotFoundException();
+            } 
 
-            await _bookRepository.DeleteAsync(bookToDelete!);
+            await bookRepository.DeleteAsync(bookToDelete!, cancellationToken: CancellationToken.None);
 
             return true;
         }
+
+        private BookDto ThrowBookNotFoundException() =>
+            throw new NotFoundException("Book not found");
     }
 }

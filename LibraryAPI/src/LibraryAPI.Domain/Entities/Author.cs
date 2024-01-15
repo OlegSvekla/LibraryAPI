@@ -8,9 +8,7 @@ namespace LibraryAPI.Domain.Entities
         public string LastName { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
 
-        public Author()
-        {
-        }
+        public Author() { }
 
         public Author(string firstName, string lastName)
         {
