@@ -1,5 +1,5 @@
 # "CRUD Web API for Library Simulation"
-Built using .NET Core, EF Core, MS SQL Server, AutoMapper, Authentication via bearer token with IdentityServerand JwtToken, Swagger and EF Fluent API.
+Built using .NET Core, EF Core, MS SQL Server, AutoMapper, Authentication via bearer token with IdentityServer and JwtToken, Swagger and EF Fluent API.
 # How to start a project:
 - Clone this repository to your local compucter.
 - Run the project (the application checks if the database provider is SQL Server and applies any pending migrations, initial test data will be seeded).
