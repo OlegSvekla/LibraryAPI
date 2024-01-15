@@ -7,5 +7,5 @@ Built using .NET Core, EF Core, MS SQL Server, AutoMapper, Authentication via be
 	1. Registration (call the register endpoint)
 	2. Email verification (call the verify-email endpoint and enter the verification token received in your email)
 	3. Log in (enter your email and password)
-	4. Enter the JwtToken received after authorization (call Available authorizations => Bearer <Your received Token>)
+	4. Enter the JwtToken received after authorization (call Available authorizations => Bearer ,,Your received Token,,)
 - Use API testing tools to interact with the endpoints and perform CRUD operations on entities.
