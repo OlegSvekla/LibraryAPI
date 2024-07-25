@@ -4,90 +4,6 @@
     "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI\\LibraryAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
-        "projectName": "LibraryAPI.BL",
-        "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj",
-        "packagesPath": "C:\\Users\\olegs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\olegs\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
-                "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj"
-              },
-              "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Infrastructure\\LibraryAPI.Infrastructure.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[12.0.1, )"
-            },
-            "MailKit": {
-              "target": "Package",
-              "version": "[4.3.0, )"
-            },
-            "Microsoft.IdentityModel.Tokens": {
-              "target": "Package",
-              "version": "[6.21.0, )"
-            },
-            "MimeKit": {
-              "target": "Package",
-              "version": "[4.3.0, )"
-            },
-            "System.IdentityModel.Tokens.Jwt": {
-              "target": "Package",
-              "version": "[6.21.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -106,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -118,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -153,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -175,6 +97,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -191,6 +114,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -242,7 +170,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -264,16 +192,13 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj": {
-                "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.BL\\LibraryAPI.BL.csproj"
-              },
               "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj": {
                 "projectPath": "C:\\Users\\olegs\\source\\repos\\OlegSvekla\\LibraryAPI\\LibraryAPI\\src\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj"
               },
@@ -287,6 +212,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -369,7 +299,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }
